@@ -20,9 +20,9 @@ for:
           
           cl main.cpp -o app.exe
 
-    after_build:
-      - cmd:
-          appveyor PushArtifact app.exe
+#    after_build:
+#      - cmd:
+#          appveyor PushArtifact app.exe
           
   -
     matrix:
@@ -37,9 +37,9 @@ for:
       - sh: >-
           gcc main.cpp -o app
 
-    after_build:
-      - sh: >-
-          appveyor PushArtifact app
+#    after_build:
+#      - sh: >-
+#          appveyor PushArtifact app
 
 
 artifacts:
