@@ -1,0 +1,32 @@
+version: 1.0.{build}
+image:
+- Visual Studio 2017
+- Ubuntu1804
+configuration: Release
+platform:
+- x64
+    
+    
+for:
+  -
+    matrix:
+      only:
+        - image: Visual Studio 2017
+          platform: x64
+    build_script:
+      - echo Visual Studio 2017 x64 build script
+      - cmd:
+          cl main.cpp -o app.exe
+
+  -
+    matrix:
+      only:
+        - image: Ubuntu1804
+    init:
+      - echo Ubuntu build script
+      - sh: >-
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev
+          
+    build_script:
+      - sh: >-
+          gcc main.cpp -o app
