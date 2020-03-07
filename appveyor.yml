@@ -43,11 +43,12 @@ for:
 
 
 artifacts:
-- path: app*
-  name: Appveyor test app
+- path: app????
+  name: test_app_release
   
 deploy:
 - provider: GitHub
-  auth_token:
-    secure: 2fec693b59f1e9d8e2413186bcd13516c3991974
+  artifact: test_app_release
+#  auth_token:
+#    secure: 2fec693b59f1e9d8e2413186bcd13516c3991974
           
