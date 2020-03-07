@@ -18,7 +18,7 @@ for:
       - cmd:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
-          cl main.cpp -o app.exe
+          cl main.cpp /Fe: app.exe
 
 #    after_build:
 #      - cmd:
@@ -49,6 +49,6 @@ artifacts:
 deploy:
 - provider: GitHub
   artifact: test_app_release
-#  auth_token:
-#    secure: 2fec693b59f1e9d8e2413186bcd13516c3991974
+  auth_token:
+    secure: 2ac0102f1ba67daf57dadf7f4fbd5e192faa8081
           
