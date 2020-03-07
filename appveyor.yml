@@ -6,11 +6,6 @@ configuration: Release
 platform:
 - x64
     
-deploy:
-- provider: GitHub
-  auth_token:
-    secure: 2fec693b59f1e9d8e2413186bcd13516c3991974
-  name: pack
   
 for:
   -
@@ -45,3 +40,14 @@ for:
     after_build:
       - sh: >-
           appveyor PushArtifact app
+
+
+artifacts:
+- path: app*
+  name: Appveyor test app
+  
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: 2fec693b59f1e9d8e2413186bcd13516c3991974
+          
