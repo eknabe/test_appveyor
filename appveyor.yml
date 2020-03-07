@@ -21,7 +21,7 @@ for:
           cl main.cpp -o app.exe
 
     after_build:
-      - sh: >-
+      - cmd:
           appveyor PushArtifact app.exe
           
   -
