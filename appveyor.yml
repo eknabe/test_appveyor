@@ -16,6 +16,7 @@ for:
     build_script:
       - echo Visual Studio 2017 x64 build script
       - cmd:
+          vcvars64.bat
           cl main.cpp -o app.exe
 
   -
