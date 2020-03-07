@@ -17,8 +17,13 @@ for:
       - echo Visual Studio 2017 x64 build script
       - cmd:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+          
           cl main.cpp -o app.exe
 
+    after_build:
+      - sh: >-
+          appveyor PushArtifact app.exe
+          
   -
     matrix:
       only:
@@ -31,3 +36,7 @@ for:
     build_script:
       - sh: >-
           gcc main.cpp -o app
+
+    after_build:
+      - sh: >-
+          appveyor PushArtifact app
