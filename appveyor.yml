@@ -6,7 +6,10 @@ configuration: Release
 platform:
 - x64
     
-    
+deploy:
+- provider: GitHub
+  name: pack
+  
 for:
   -
     matrix:
