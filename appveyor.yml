@@ -48,5 +48,4 @@ artifacts:
   
 deploy:
   - provider: GitHub
-    artifact: test_app_release
           
