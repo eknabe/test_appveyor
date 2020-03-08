@@ -46,6 +46,6 @@ artifacts:
   - path: app????
     name: test_app_release
   
-deploy:
-  - provider: GitHub
+#deploy:
+#  - provider: GitHub
           
