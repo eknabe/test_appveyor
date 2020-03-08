@@ -43,8 +43,9 @@ artifacts:
   
 deploy:
   - provider: GitHub
-    release: 3dfier automated release version $(appveyor_build_version)
-    description: 'This is an automated test_appveyor release'  
+    tag: v$(appveyor_build_version)
+    release: test_appveyor v$(appveyor_build_version)
+    description: 'Automated test_appveyor release'  
     branch: master                 # release from master branch only
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
