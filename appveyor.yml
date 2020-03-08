@@ -46,10 +46,11 @@ for:
 
 
 artifacts:
-  - path: app????
+  - path: app
+  - path: app.exe
     name: test_app_release
   
 deploy:
   - provider: GitHub
     auth_token:
-      secure: 575601ab20029052452d6b16df2578d12fb75583
+      secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
