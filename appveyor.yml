@@ -43,12 +43,12 @@ for:
 
 
 artifacts:
-- path: app????
-  name: test_app_release
+  - path: app????
+    name: test_app_release
   
 deploy:
-- provider: GitHub
-  artifact: test_app_release
-  auth_token:
-    secure: 575601ab20029052452d6b16df2578d12fb75583
+  - provider: GitHub
+    artifact: test_app_release
+    auth_token:
+      secure: 575601ab20029052452d6b16df2578d12fb75583
           
