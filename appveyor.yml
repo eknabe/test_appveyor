@@ -43,7 +43,6 @@ artifacts:
   
 deploy:
   - provider: GitHub
-    tag: v$(appveyor_build_version)
     release: test_appveyor v$(appveyor_build_version)
     description: 'Automated test_appveyor release'  
     branch: master                 # release from master branch only
