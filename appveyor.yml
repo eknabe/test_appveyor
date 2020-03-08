@@ -52,5 +52,6 @@ artifacts:
   
 deploy:
   - provider: GitHub
+    branch: master                 # release from master branch only
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
