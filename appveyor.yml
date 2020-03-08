@@ -50,5 +50,5 @@ deploy:
 - provider: GitHub
   artifact: test_app_release
   auth_token:
-    secure: '2ac0102f1ba67daf57dadf7f4fbd5e192faa8081'
+    secure: 575601ab20029052452d6b16df2578d12fb75583
           
