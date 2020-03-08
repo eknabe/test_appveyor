@@ -43,9 +43,9 @@ artifacts:
   
 deploy:
   - provider: GitHub
+    tag: $(APPVEYOR_REPO_TAG_NAME)
     release: test_appveyor v$(appveyor_build_version)
     description: 'Automated test_appveyor release'  
-    branch: master                 # release from master branch only
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
     on:
