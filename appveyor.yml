@@ -45,7 +45,7 @@ deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
     release: test_appveyor v$(appveyor_build_version)
-    description: 'Automated test_appveyor release'  
+    description: 'Automated test_appveyor release\nDemo of kalle'  
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
     on:
