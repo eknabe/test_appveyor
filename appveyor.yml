@@ -1,8 +1,15 @@
 version: 1.0.{build}
+
+environment:
+  BuildEnvironment: appveyor_env
+  
+
 image:
 - Visual Studio 2017
 - Ubuntu1804
+
 configuration: Release
+
 platform:
 - x64
     
