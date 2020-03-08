@@ -8,7 +8,7 @@ configuration: Release
 
 platform:
 - x64
-    
+
   
 for:
   -
@@ -22,10 +22,6 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
-
-#    after_build:
-#      - cmd:
-#          appveyor PushArtifact app.exe
           
   -
     matrix:
@@ -40,11 +36,6 @@ for:
       - sh: >-
           gcc main.cpp -o app
 
-#    after_build:
-#      - sh: >-
-#          appveyor PushArtifact app
-
-
 artifacts:
   - path: app
   - path: app.exe
@@ -55,3 +46,5 @@ deploy:
     branch: master                 # release from master branch only
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
+    on:
+        APPVEYOR_REPO_TAG: true       # deploy on tag push only
