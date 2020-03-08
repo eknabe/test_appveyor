@@ -1,9 +1,5 @@
 version: 1.0.{build}
 
-environment:
-  BuildEnvironment: appveyor_env
-  
-
 image:
 - Visual Studio 2017
 - Ubuntu1804
@@ -53,6 +49,6 @@ artifacts:
   - path: app????
     name: test_app_release
   
-#deploy:
-#  - provider: GitHub
+deploy:
+  - provider: GitHub
           
