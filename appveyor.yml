@@ -9,6 +9,8 @@ configuration: Release
 platform:
 - x64
 
+before_build:
+  - ps: gitversion /l console /output buildserver
   
 for:
   -
