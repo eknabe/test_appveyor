@@ -48,7 +48,7 @@ deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
     release: test_appveyor $(GitVersion_MajorMinorPatch) (build $(APPVEYOR_BUILD_NUMBER))
-    description: 'Automated release\nBinaries6'  
+    description: 'Automated release\nBinaries7'  
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
     on:
