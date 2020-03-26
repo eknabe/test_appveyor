@@ -24,6 +24,10 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
+
+    artifacts:
+      - path: app
+        name: test_app_release_win
           
   -
     matrix:
@@ -38,10 +42,9 @@ for:
       - sh: >-
           gcc main.cpp -o app
 
-artifacts:
-  - path: app
-  - path: app.exe
-    name: test_app_release
+    artifacts:
+      - path: app
+        name: test_app_release_ubuntu
   
 deploy:
   - provider: GitHub
