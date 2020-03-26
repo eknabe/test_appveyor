@@ -1,5 +1,3 @@
-version: 1.0.0{build}
-
 image:
 - Visual Studio 2017
 - Ubuntu1804
@@ -26,7 +24,7 @@ for:
           cl main.cpp "/Fe:" app.exe
 
     artifacts:
-      - path: app
+      - path: app.exe
         name: test_app_release_win
           
   -
