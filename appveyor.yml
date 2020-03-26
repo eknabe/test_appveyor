@@ -14,22 +14,6 @@ for:
   -
     matrix:
       only:
-        - image: Visual Studio 2017
-          platform: x64
-    build_script:
-      - echo Visual Studio 2017 x64 build script
-      - cmd:
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-          
-          cl main.cpp "/Fe:" app.exe
-
-    artifacts:
-      - path: app.exe
-        name: test_app_release_win
-          
-  -
-    matrix:
-      only:
         - image: Ubuntu1804
     init:
       - echo Ubuntu build script
@@ -44,6 +28,22 @@ for:
       - path: app
         name: test_app_release_ubuntu
   
+  -
+    matrix:
+      only:
+        - image: Visual Studio 2017
+          platform: x64
+    build_script:
+      - echo Visual Studio 2017 x64 build script
+      - cmd:
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+          
+          cl main.cpp "/Fe:" app.exe
+
+    artifacts:
+      - path: app.exe
+        name: test_app_release_win
+
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
