@@ -10,6 +10,8 @@ platform:
 before_build:
   - cmd: gitversion /l console /output buildserver
 
+  - ps: echo "Hello world"  
+
 for:
   -
     matrix:
