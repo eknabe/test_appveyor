@@ -10,7 +10,9 @@ platform:
 before_build:
   - cmd: gitversion /l console /output buildserver
 
-  - ps: echo "Hello world!"  | Out-File kalle.txt
+  - ps: |
+      echo "Hello world!"  | Out-File kalle.txt
+      pwd
 
 for:
   -
@@ -25,11 +27,11 @@ for:
     build_script:
       - sh: >-
           gcc main.cpp -o app
-          
+      
       - ps: |
-          echo Content of file:
-          type kalle.txt
-
+          pwd
+          type kalle.txt                 
+          
     artifacts:
       - path: app
         name: test_app_release_ubuntu
@@ -47,7 +49,7 @@ for:
           cl main.cpp "/Fe:" app.exe
           
       - ps: |
-          echo Content of file:
+          pwd
           type kalle.txt          
 
     artifacts:
