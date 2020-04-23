@@ -10,7 +10,7 @@ platform:
 before_build:
   - cmd: gitversion /l console /output buildserver
 
-  - ps: echo "Hello world"  
+  - ps: echo "Hello world!"  | Out-File kalle.txt
 
 for:
   -
@@ -25,6 +25,10 @@ for:
     build_script:
       - sh: >-
           gcc main.cpp -o app
+          
+      - ps: |
+          echo Content of file:
+          type kalle.txt
 
     artifacts:
       - path: app
@@ -41,6 +45,10 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
+          
+      - ps: |
+          echo Content of file:
+          type kalle.txt          
 
     artifacts:
       - path: app.exe
