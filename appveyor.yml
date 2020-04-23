@@ -33,7 +33,7 @@ for:
           type kalle.txt                 
           
     artifacts:
-      - path: *.?x?
+      - path: *.\?x\?
         name: test_app_release_ubuntu
   
   -
@@ -53,7 +53,7 @@ for:
           type kalle.txt          
 
     artifacts:
-      - path: *.?x?
+      - path: app
         name: test_app_release_win
 
 deploy:
