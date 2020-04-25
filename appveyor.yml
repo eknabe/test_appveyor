@@ -19,8 +19,8 @@ before_build:
         type version.txt
 
 artifacts:
-  - path: 'app*'
-    name: application
+  - path: app
+  - path: app.exe
 
 skip_commits:
   files:
@@ -44,10 +44,6 @@ for:
       - ps: |
           pwd
           type kalle.txt                 
-          
-    artifacts:
-      - path: app
-        name: test_app_release_ubuntu
   
   -
     matrix:
@@ -62,11 +58,12 @@ for:
           cl main.cpp "/Fe:" app.exe
 
 
-
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
     release: test_appveyor $(GitVersion_MajorMinorPatch) (build $(APPVEYOR_BUILD_NUMBER))
+    artifacts:
+      - path: release.txt
     description: 'Automated release\nBinaries8'
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
