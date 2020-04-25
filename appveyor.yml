@@ -15,13 +15,18 @@ before_build:
   - cmd: gitversion /l console /output buildserver
   
   - ps: |
-        echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\nTAG:$(APPVEYOR_REPO_TAG_NAME)\nGitVersion:$(GitVersion_MajorMinorPatch)"  | Out-File -Encoding ascii version.txt
+        echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\n"  | Out-File -Encoding ascii version.txt
         type version.txt
 
 artifacts:
   - path: 'app*'
     name: application
 
+skip_commits:
+  files:
+    - docs/*
+    - readme.txt
+    
 for:
   -
     matrix:
@@ -55,12 +60,8 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
-          
-    artifacts:
-      - path: app.exe
-        name: test_app_release_win
-      - path: version.txt
-        name: version_file
+
+
 
 deploy:
   - provider: GitHub
