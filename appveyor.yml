@@ -49,11 +49,11 @@ for:
           cl main.cpp "/Fe:" app.exe
           
     artifacts:
-      - only master
-        - path: app.exe
-          name: test_app_release_win
-        - path: version.txt
-          name: version_file
+      only master
+      - path: app.exe
+        name: test_app_release_win
+      - path: version.txt
+        name: version_file
 
 deploy:
   - provider: GitHub
