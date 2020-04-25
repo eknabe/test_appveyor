@@ -49,14 +49,11 @@ for:
           cl main.cpp "/Fe:" app.exe
           
     artifacts:
-      - only: 
-        APPVEYOR_REPO_TAG: true
+      - only master
         - path: app.exe
           name: test_app_release_win
         - path: version.txt
           name: version_file
-      - path: app.exe
-        name: test_app_release_win
 
 deploy:
   - provider: GitHub
