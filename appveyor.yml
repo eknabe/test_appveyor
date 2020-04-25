@@ -40,11 +40,7 @@ for:
     build_script:
       - sh: >-
           gcc main.cpp -o app
-      
-      - ps: |
-          pwd
-          type kalle.txt                 
-  
+
   -
     matrix:
       only:
