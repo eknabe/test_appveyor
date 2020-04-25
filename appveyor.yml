@@ -55,8 +55,7 @@ for:
 
   - 
     matrix:
-      only:
-        - skip_non_tags: true
+      skip_non_tags: true
 
     artifacts:
       - path: release.txt
