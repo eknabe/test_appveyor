@@ -33,7 +33,7 @@ for:
           type kalle.txt                 
           
     artifacts:
-      - path: *.\?x\?
+      - path: '*.?x?'
         name: test_app_release_ubuntu
   
   -
