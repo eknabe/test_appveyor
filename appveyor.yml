@@ -9,10 +9,10 @@ platform:
 
 before_build:
   - cmd: gitversion /l console /output buildserver
-
+  
   - ps: |
-      echo "Hello world!"  | Out-File -Encoding ascii kalle.txt
-      pwd
+        echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\nTAG:$(APPVEYOR_REPO_TAG_NAME)\nGitVersion:$(GitVersion_MajorMinorPatch)"  | Out-File -Encoding ascii version.txt
+        type version.txt
 
 for:
   -
@@ -33,7 +33,7 @@ for:
           type kalle.txt                 
           
     artifacts:
-      - path: '*.?x?'
+      - path: 
         name: test_app_release_ubuntu
   
   -
@@ -48,13 +48,14 @@ for:
           
           cl main.cpp "/Fe:" app.exe
           
-      - ps: |
-          pwd
-          type kalle.txt          
-
     artifacts:
-      - path: app
+      - path: app.exe
         name: test_app_release_win
+      - path: version.txt
+        on: 
+          APPVEYOR_REPO_TAG: true
+        name: version_file
+
 
 deploy:
   - provider: GitHub
