@@ -49,7 +49,8 @@ for:
           cl main.cpp "/Fe:" app.exe
           
     artifacts:
-      only master
+      only:
+        master
       - path: app.exe
         name: test_app_release_win
       - path: version.txt
