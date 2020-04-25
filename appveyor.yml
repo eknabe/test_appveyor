@@ -1,11 +1,15 @@
-image:
-- Visual Studio 2017
-#- Ubuntu1804
+environment:
+  matrix:
+
+  - job_name: Windows build
+    appveyor_build_worker_image: Visual Studio 2017
+
+  - job_name: Linux build
+    appveyor_build_worker_image: Ubuntu1804
 
 configuration: Release
 
-platform:
-- x64
+platform: x64
 
 before_build:
   - cmd: gitversion /l console /output buildserver
@@ -14,11 +18,15 @@ before_build:
         echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\nTAG:$(APPVEYOR_REPO_TAG_NAME)\nGitVersion:$(GitVersion_MajorMinorPatch)"  | Out-File -Encoding ascii version.txt
         type version.txt
 
+artifacts:
+  - path: 'app*'
+    name: application
+
 for:
   -
     matrix:
       only:
-        - image: Ubuntu1804
+        - job_name: Linux build
     init:
       - echo Ubuntu build script
       - sh: >-
@@ -39,8 +47,8 @@ for:
   -
     matrix:
       only:
-        - image: Visual Studio 2017
-          platform: x64
+        - job_name: Windows build
+        
     build_script:
       - echo Visual Studio 2017 x64 build script
       - cmd:
@@ -49,8 +57,6 @@ for:
           cl main.cpp "/Fe:" app.exe
           
     artifacts:
-      only:
-        master
       - path: app.exe
         name: test_app_release_win
       - path: version.txt
