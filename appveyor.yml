@@ -17,14 +17,12 @@ artifacts:
   - path: /app.*/
 
 skip_commits:
+  message: /#dont-build/
   files:
     - docs/*
     - readme.txt
 
 max_jobs: 2
-
-skip_commits:
-  message: /#dont-build/
 
 for:
   -
