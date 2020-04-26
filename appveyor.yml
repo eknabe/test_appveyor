@@ -30,7 +30,6 @@ for:
   - 
     branches:
       only: master
-    
     artifacts:
     - version.txt
     
