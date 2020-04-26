@@ -26,6 +26,13 @@ max_jobs: 2
 
 for:
   -
+    branches:
+      only: 
+      - master
+    
+    artifacts:
+      path: version.txt
+  -
     matrix:
       only:
         - job_name: Linux build
@@ -50,9 +57,9 @@ for:
           
           cl main.cpp "/Fe:" app.exe
 
-  - 
-    matrix:
-      skip_non_tags: true
+    branches:
+      only: 
+        master
 
     artifacts:
       - path: release.txt
