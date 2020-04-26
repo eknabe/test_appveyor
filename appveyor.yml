@@ -32,37 +32,6 @@ for:
     
     artifacts:
       path: version.txt
-  -
-    matrix:
-      only:
-        - job_name: Linux build
-    init:
-      - echo Ubuntu build script
-      - sh: >-
-          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev
-          
-    build_script:
-      - sh: >-
-          gcc main.cpp -o app
-
-  -
-    matrix:
-      only:
-        - job_name: Windows build
-        
-    build_script:
-      - echo Visual Studio 2017 x64 build script
-      - cmd:
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-          
-          cl main.cpp "/Fe:" app.exe
-
-    branches:
-      only: 
-        master
-
-    artifacts:
-      - path: release.txt
 
 deploy:
   - provider: GitHub
