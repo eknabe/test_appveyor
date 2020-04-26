@@ -34,7 +34,6 @@ for:
     artifacts:
     - version.txt
     
-for:
   -
     matrix:
       only:
