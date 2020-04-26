@@ -14,7 +14,8 @@ before_build:
         type version.txt
 
 artifacts:
-  - path: 'app*'
+  - path: 'app'
+  - path: 'app.exe'
 
 skip_commits:
   message: /#dont-build/
@@ -29,7 +30,6 @@ for:
     branches:
       only: 
       - master
-    
     artifacts:
       - path: version.txt
       
