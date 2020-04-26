@@ -19,13 +19,20 @@ before_build:
         type version.txt
 
 artifacts:
-  - path: app
-  - path: app.exe
+  - path: /app.*/
 
 skip_commits:
   files:
     - docs/*
     - readme.txt
+
+for:
+  - 
+    branches:
+      only: master
+    
+    artifacts:
+    - version.txt
     
 for:
   -
