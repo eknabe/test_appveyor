@@ -1,11 +1,6 @@
-environment:
-  matrix:
-
-  - job_name: Windows build
-    appveyor_build_worker_image: Visual Studio 2017
-
-  - job_name: Linux build
-    appveyor_build_worker_image: Ubuntu1804
+image:
+- Visual Studio 2017
+- Ubuntu1804
 
 configuration: Release
 
@@ -26,13 +21,12 @@ skip_commits:
     - docs/*
     - readme.txt
 
+max_jobs: 2
+
+skip_commits:
+  message: /#dont-build/
+
 for:
-  - 
-    branches:
-      only: master
-    artifacts:
-    - version.txt
-    
   -
     matrix:
       only:
