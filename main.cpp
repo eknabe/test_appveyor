@@ -2,7 +2,7 @@
 
 int main()
 {
-    printf("hello appveyor 1!\n");
+    printf("hello appveyor 2!\n");
     
     return 0;
 }
