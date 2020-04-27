@@ -1,6 +1,6 @@
 image:
 - Visual Studio 2017
-#- Ubuntu1804
+- Ubuntu1804
 
 configuration: Release
 
@@ -16,9 +16,10 @@ before_build:
 artifacts:
   - path: 'app'
   - path: 'app.exe'
+  - path: '*.txt'
 
 skip_commits:
-  message: /#dont-build/
+  message: /#skip_build/
   files:
     - docs/*
     - readme.txt
@@ -29,7 +30,7 @@ after_build:
   - ps: |
       if ($Env:APPVEYOR_REPO_TAG)
       {
-          - path: 'dummy.txt'
+          echo "dummy content"  | Out-File -Encoding ascii dummy.txt
       }
 
 for:
