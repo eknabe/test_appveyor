@@ -28,7 +28,7 @@ max_jobs: 2
 
 after_build:
   - ps: |
-      if ($Env:APPVEYOR_REPO_TAG)
+      if ($Env:APPVEYOR_REPO_TAG -eq $true)
       {
           echo "dummy content"  | Out-File -Encoding ascii dummy.txt
       }
