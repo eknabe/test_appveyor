@@ -1,6 +1,6 @@
 image:
 - Visual Studio 2017
-- Ubuntu1804
+#- Ubuntu1804
 
 configuration: Release
 
@@ -25,14 +25,14 @@ skip_commits:
 
 max_jobs: 2
 
+after_build:
+  - ps: |
+      if ($Env:APPVEYOR_REPO_TAG)
+      {
+          - path: 'dummy.txt'
+      }
+
 for:
-  -
-    branches:
-      only: 
-      - master
-    artifacts:
-      - path: version.txt
-      
   -
     matrix:
       only:
