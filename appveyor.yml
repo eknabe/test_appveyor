@@ -14,8 +14,7 @@ before_build:
         type version.txt
 
 artifacts:
-  - path: 'app'
-  - path: 'app.exe'
+  - path: /app????/
   - path: '*.txt'
 
 skip_commits:
