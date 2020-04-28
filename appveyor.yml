@@ -47,9 +47,12 @@ for:
       - sh: >-
           gcc main.cpp -o app
           
-          gcc kalle.cpp -o kalle
-          
-          echo "should not be seen"
+          if [ -n "$APPVEYOR_REPO_TAG" ]; 
+          then     
+              echo "APPVEYOR_REPO_TAG set" 
+          else
+              echo "APPVEYOR_REPO_TAG not set" 
+          fi
           
     after_build:
       - sh: >-
@@ -66,6 +69,8 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
+          
+          IF DEFINED APPVEYOR_REPO_TAG (echo "APPVEYOR_REPO_TAG set") ELSE (echo "APPVEYOR_REPO_TAG not set")
 
     after_build:
       - cmd: 
