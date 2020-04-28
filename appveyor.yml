@@ -45,7 +45,6 @@ for:
     build_script:
       - sh: >-
           gcc main.cpp -o app
-          mv dummy.txt dummy_ubuntu.txt
           
     after_build:
       - sh: >-
@@ -62,8 +61,6 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
-          
-          rename dummy.txt dummy_windows.txt
 
     after_build:
       - cmd: 
