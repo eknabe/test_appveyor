@@ -47,6 +47,10 @@ for:
       - sh: >-
           gcc main.cpp -o app
           
+          gcc kalle.cpp -o kalle
+          
+          echo "should not be seen"
+          
     after_build:
       - sh: >-
           echo "Hello after world linux"
