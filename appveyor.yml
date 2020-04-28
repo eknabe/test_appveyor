@@ -47,7 +47,7 @@ for:
       - sh: >-
           gcc main.cpp -o app
           
-          if [ "$APPVEYOR_REPO_TAG" == 1]; 
+          if [ "$APPVEYOR_REPO_TAG" == 1 ]; 
           then     
               echo "APPVEYOR_REPO_TAG true";
           else
