@@ -66,10 +66,9 @@ for:
           rename dummy.txt dummy_windows.txt
 
     after_build:
-      - cmd: >-
-        echo "Hello after world windows"
+      - cmd: 
+          echo "Hello after world windows"
 
-      
 
 deploy:
   - provider: GitHub
