@@ -25,7 +25,7 @@ skip_commits:
 
 max_jobs: 2
 
-before_package:
+on_success:
   - ps: |
       echo "hello global"
       if ($Env:APPVEYOR_REPO_TAG -eq $true)
