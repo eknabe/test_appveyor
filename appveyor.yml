@@ -27,6 +27,7 @@ max_jobs: 2
 
 after_build:
   - ps: |
+      echo "hello global"
       if ($Env:APPVEYOR_REPO_TAG -eq $true)
       {
           echo "dummy content"  | Out-File -Encoding ascii dummy.txt
