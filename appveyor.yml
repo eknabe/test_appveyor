@@ -46,6 +46,10 @@ for:
       - sh: >-
           gcc main.cpp -o app
           mv dummy.txt dummy_ubuntu.txt
+          
+    after_build:
+      - sh: >-
+          echo "Hello after world linux"
 
   -
     matrix:
@@ -60,6 +64,10 @@ for:
           cl main.cpp "/Fe:" app.exe
           
           rename dummy.txt dummy_windows.txt
+
+    after_build:
+      - cmd: >-
+        echo "Hello after world windows"
 
       
 
