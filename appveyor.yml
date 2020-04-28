@@ -47,11 +47,11 @@ for:
       - sh: >-
           gcc main.cpp -o app
           
-          if [ -n "$APPVEYOR_REPO_TAG" ]; 
+          if [ "$APPVEYOR_REPO_TAG" == 1]; 
           then     
-              echo "APPVEYOR_REPO_TAG set" 
+              echo "APPVEYOR_REPO_TAG true" 
           else
-              echo "APPVEYOR_REPO_TAG not set" 
+              echo "APPVEYOR_REPO_TAG false" 
           fi
           
     after_build:
@@ -70,7 +70,7 @@ for:
           
           cl main.cpp "/Fe:" app.exe
           
-          IF DEFINED APPVEYOR_REPO_TAG (echo "APPVEYOR_REPO_TAG set") ELSE (echo "APPVEYOR_REPO_TAG not set")
+          IF %APPVEYOR_REPO_TAG%==1 (echo "APPVEYOR_REPO_TAG true") ELSE (echo "APPVEYOR_REPO_TAG false")
 
     after_build:
       - cmd: 
