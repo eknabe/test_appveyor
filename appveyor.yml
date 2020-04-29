@@ -20,8 +20,8 @@ artifacts:
 skip_commits:
   message: /#skip_build/
   files:
-    - docs/*
-    - *.txt
+    - 'docs/*'
+    - '*.txt'
 
 max_jobs: 2
 
