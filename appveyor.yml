@@ -21,7 +21,7 @@ skip_commits:
   message: /#skip_build/
   files:
     - docs/*
-    - readme.txt
+    - *.txt
 
 max_jobs: 2
 
