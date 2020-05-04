@@ -74,7 +74,7 @@ for:
 
     after_build:
       - ps: |
-          if ($APPVEYOR_REPO_COMMIT_MESSAGE.Contains('*#no_bins*'))
+          if ($Env:APPVEYOR_REPO_COMMIT_MESSAGE.Contains('*#no_bins*'))
           {
             echo "Skip"
           }
