@@ -78,11 +78,13 @@ for:
           
           echo %APPVEYOR_REPO_COMMIT_MESSAGE% | find "#no_bins" >nul
           
+          echo Hello after message filter
           if errorlevel 1 (
             echo Skip create and push binary artifacts
           ) else (
             echo Create artifacts
           )
+          echo Hello after artifact creation
 
 
 deploy:
