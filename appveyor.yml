@@ -75,6 +75,14 @@ for:
     after_build:
       - cmd: 
           echo "Hello after world windows"
+          
+          echo %APPVEYOR_REPO_COMMIT_MESSAGE% | find "#no_bins" >nul
+          
+          if errorlevel 1 (
+            echo Skip create and push binary artifacts
+          ) else (
+            echo Create artifacts
+          )
 
 
 deploy:
