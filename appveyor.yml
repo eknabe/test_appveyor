@@ -98,4 +98,4 @@ deploy:
     auth_token:
       secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
     on:
-       APPVEYOR_REPO_TAG: true       # deploy on tag push only 
+       APPVEYOR_REPO_TAG: true       # deploy on tag push only
