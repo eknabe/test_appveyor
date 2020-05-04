@@ -74,7 +74,7 @@ for:
 
     after_build:
       - cmd: 
-          echo "Hello after world windows"
+          echo "Hello after world windows" 
           
           echo.%APPVEYOR_REPO_COMMIT_MESSAGE% | findstr /C:"#no_bins" >nul 2>&1 && echo Skip binary artifacts || echo Create artifacts.
 
