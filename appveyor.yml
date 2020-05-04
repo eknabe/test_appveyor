@@ -73,6 +73,17 @@ for:
           IF %APPVEYOR_REPO_TAG%==1 (echo "APPVEYOR_REPO_TAG true") ELSE (echo "APPVEYOR_REPO_TAG false")
 
     after_build:
+      - ps: |
+          if ($APPVEYOR_REPO_COMMIT_MESSAGE.Contains('*#no_bins*'))
+          {
+            echo "Skip"
+          }
+          else
+          {
+            echo "not Skip"
+          }
+          
+          
       - cmd: 
           echo "Hello after world windows" 
           
