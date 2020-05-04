@@ -76,15 +76,7 @@ for:
       - cmd: 
           echo "Hello after world windows"
           
-          echo %APPVEYOR_REPO_COMMIT_MESSAGE% | find "#no_bins" >nul
-          
-          echo Hello after message filter
-          if errorlevel 1 (
-            echo Skip create and push binary artifacts
-          ) else (
-            echo Create artifacts
-          )
-          echo Hello after artifact creation
+          echo.%APPVEYOR_REPO_COMMIT_MESSAGE% | findstr /C:"#no_bins" >nul 2>&1 && echo Skip binary artifacts || echo Create artifacts.
 
 
 deploy:
