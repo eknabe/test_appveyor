@@ -1,6 +1,6 @@
 image:
 - Visual Studio 2017
-- Ubuntu1804
+#- Ubuntu1804
 
 configuration: Release
 
@@ -76,7 +76,7 @@ for:
       - cmd: 
           echo "Hello after world windows" 
           
-          echo.%APPVEYOR_REPO_COMMIT_MESSAGE% | findstr /C:"#no_bins" >nul 2>&1 && echo Skip binary artifacts || echo Create artifacts.
+          echo.%APPVEYOR_REPO_COMMIT_MESSAGE% | findstr /C:"#no_bins" >nul 2>&1 && echo Skip binary artifacts || echo Create artifacts. > nul
 
 
 deploy:
