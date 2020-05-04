@@ -82,13 +82,15 @@ for:
           {
             echo "not Skip"
           }
-          
-          
-      - cmd: 
-          echo "Hello after world windows" 
-          
-          echo.%APPVEYOR_REPO_COMMIT_MESSAGE% | findstr /C:"#no_bins" >nul 2>&1 && echo Skip binary artifacts || echo Create artifacts. >nul
-
+        
+          if ($Env:APPVEYOR_REPO_TAG -eq $true)
+          {
+            echo "Pack demos"
+          }
+          else
+          {
+            echo "Skip demos"
+          }
 
 deploy:
   - provider: GitHub
