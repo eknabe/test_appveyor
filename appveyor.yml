@@ -50,12 +50,26 @@ for:
           
           if [ "$APPVEYOR_REPO_TAG" == 1 ]; 
           then     
-              echo "APPVEYOR_REPO_TAG true";
+              echo "APPVEYOR_REPO_TAG 1";
           else
-              echo "APPVEYOR_REPO_TAG false"; 
+              echo "APPVEYOR_REPO_TAG not 1"; 
           fi
           
-    after_build:
+          if [ "$APPVEYOR_REPO_TAG" == $true ]; 
+          then     
+              echo "APPVEYOR_REPO_TAG true";
+          else
+              echo "APPVEYOR_REPO_TAG not true"; 
+          fi
+
+          if [ "$APPVEYOR_REPO_TAG" == "true" ]; 
+          then     
+              echo "APPVEYOR_REPO_TAG \"true\"";
+          else
+              echo "APPVEYOR_REPO_TAG not \"true\""; 
+          fi
+
+after_build:
       - sh: >-
           echo "Hello after world linux"
 
