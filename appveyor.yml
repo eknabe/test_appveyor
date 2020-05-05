@@ -64,9 +64,9 @@ for:
 
           if [ "$APPVEYOR_REPO_TAG" == "true" ]; 
           then     
-              echo "APPVEYOR_REPO_TAG \"true\"";
+              echo "APPVEYOR_REPO_TAG -true-";
           else
-              echo "APPVEYOR_REPO_TAG not \"true\""; 
+              echo "APPVEYOR_REPO_TAG not -true-"; 
           fi
 
 after_build:
