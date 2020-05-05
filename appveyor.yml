@@ -69,7 +69,7 @@ for:
               echo "APPVEYOR_REPO_TAG not -true-"; 
           fi
 
-after_build:
+    after_build:
       - sh: >-
           echo "Hello after world linux"
 
