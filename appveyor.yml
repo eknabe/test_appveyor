@@ -46,7 +46,7 @@ for:
           
           echo "kalle $APPVEYOR_REPO_TAG"
           
-          echo "kalle2 Env:$APPVEYOR_REPO_TAG"
+          echo "kalle2 $Env:APPVEYOR_REPO_TAG"
           
           if [ "$APPVEYOR_REPO_TAG" == 1 ]; 
           then     
