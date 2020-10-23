@@ -22,14 +22,6 @@ skip_commits:
 
 max_jobs: 2
 
-deploy:
-  - provider: GitHub
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    release: esmini $(GitVersion_MajorMinorPatch) (build $(APPVEYOR_BUILD_NUMBER))
-    description: 'Demo and binaries. For information about changes and new features see [release notes](https://github.com/esmini/esmini/blob/master/release_notes.md).'
-    on:
-       APPVEYOR_REPO_TAG: true       # deploy on tag push only
-
 on_success:
   - ps: |
       echo "hello global"
@@ -37,6 +29,15 @@ on_success:
       {
           echo "dummy content"  | Out-File -Encoding ascii dummy.txt
       }
+
+deploy:
+  - provider: GitHub
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    release: test-appveyor $(GitVersion_MajorMinorPatch) (build $(APPVEYOR_BUILD_NUMBER))
+    description: 'Demo and binaries. For information about changes and new features see [release notes](https://github.com/esmini/esmini/blob/master/release_notes.md).'
+    on:
+       APPVEYOR_REPO_TAG: true       # deploy on tag push only
+
 
 for:
   -
