@@ -72,6 +72,11 @@ test_script:
             throw "test failed"
         }
 
+        ./app 0
+        if ($lastExitCode -ne 0) {
+            throw "test failed"
+        }
+
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
