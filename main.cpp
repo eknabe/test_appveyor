@@ -1,8 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>   
 
-int main()
+int main(int argc, char* argv[])
 {
-    printf("hello appveyor 5!\n");
+    int return_value = argc > 1 ? atoi(argv[1]) : -1;
     
-    return 0;
+    printf("Hello! Returning %d.\n", return_value);
+    
+    return return_value;
 }

@@ -45,31 +45,6 @@ for:
       - sh: >-
           gcc main.cpp -o app
           
-          echo "kalle $APPVEYOR_REPO_TAG"
-          
-          echo "kalle2 $Env:APPVEYOR_REPO_TAG"
-          
-          if [ "$APPVEYOR_REPO_TAG" == 1 ]; 
-          then     
-              echo "APPVEYOR_REPO_TAG 1";
-          else
-              echo "APPVEYOR_REPO_TAG not 1"; 
-          fi
-          
-          if [ "$APPVEYOR_REPO_TAG" == $true ]; 
-          then     
-              echo "APPVEYOR_REPO_TAG true";
-          else
-              echo "APPVEYOR_REPO_TAG not true"; 
-          fi
-
-          if [ "$APPVEYOR_REPO_TAG" == "true" ]; 
-          then     
-              echo "APPVEYOR_REPO_TAG -true-";
-          else
-              echo "APPVEYOR_REPO_TAG not -true-"; 
-          fi
-
     after_build:
       - sh: >-
           echo "Hello after world linux"
@@ -85,35 +60,18 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
-          
-          IF %APPVEYOR_REPO_TAG%==1 (echo "APPVEYOR_REPO_TAG true") ELSE (echo "APPVEYOR_REPO_TAG false")
 
     after_build:
-      - ps: |
-          if ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -match '#no_bins')
-          {
-            echo "Skip"
-          }
-          else
-          {
-            echo "not Skip"
-          }
-        
-          if ($Env:APPVEYOR_REPO_TAG -eq $true)
-          {
-            echo "Pack demos"
-          }
-          else
-          {
-            echo "Skip demos"
-          }
 
-# to run your custom scripts instead of automatic tests
+
 test_script:
   - echo This is my custom test script
   - ps: |
-      throw "test failed"
-      
+        ./app
+        if ($lastExitCode -ne 0) {
+            throw "test failed"
+        }
+
 deploy:
   - provider: GitHub
     tag: $(APPVEYOR_REPO_TAG_NAME)
