@@ -72,11 +72,6 @@ test_script:
             throw "test failed"
         }
 
-        ./app 5
-        if ($lastExitCode -ne 5) {
-            throw "test failed"
-        }
-
         ./test.py
 
 deploy:
