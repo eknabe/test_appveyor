@@ -1,7 +1,6 @@
 import os
 import subprocess
 import unittest
-import ctypes
 
 def run_app(number, expected_return_code):
     
