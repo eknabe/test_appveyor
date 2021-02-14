@@ -77,7 +77,7 @@ test_script:
             throw "test failed"
         }
 
-        c:/Python39/python ./test.py
+        ./test.py
 
 deploy:
   - provider: GitHub
