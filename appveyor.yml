@@ -72,10 +72,12 @@ test_script:
             throw "test failed"
         }
 
-        ./app 0
+        ./app 1
         if ($lastExitCode -ne 0) {
             throw "test failed"
         }
+
+        python ./test.py
 
 deploy:
   - provider: GitHub
