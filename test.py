@@ -8,6 +8,8 @@ def run_app(number, expected_return_code):
         cwd=os.path.dirname(os.path.realpath(__file__)))
 
     assert result.returncode == expected_return_code
+    
+    return 0
 
 class TestSum(unittest.TestCase):
 
