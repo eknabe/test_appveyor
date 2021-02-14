@@ -4,7 +4,7 @@ import unittest
 
 def run_app(number, expected_return_code):
     
-    result = subprocess.run(['./main', str(number)], \
+    result = subprocess.run(['./app', str(number)], \
         cwd=os.path.dirname(os.path.realpath(__file__)))
 
     assert result.returncode == expected_return_code
