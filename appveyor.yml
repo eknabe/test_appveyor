@@ -1,5 +1,5 @@
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# init:
+#   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 image:
 - Visual Studio 2017
@@ -48,10 +48,11 @@ for:
       - sh: >-
           gcc main.cpp -o app
           
-    after_build:
-      - sh: >-
-          echo "Hello after world linux"
-
+    test_script:
+      - echo This is my custom test script
+      - ps: |
+          python3 test.py
+      
   -
     matrix:
       only:
@@ -64,13 +65,9 @@ for:
           
           cl main.cpp "/Fe:" app.exe
 
-    after_build:
-
-
-test_script:
-  - echo This is my custom test script
-  - ps: |
-      C:\Python38\python test.py
+    test_script:
+      - ps: |
+          C:\Python38\python test.py
 
 #deploy:
   # - provider: GitHub
@@ -82,5 +79,5 @@ test_script:
   #   on:
   #      APPVEYOR_REPO_TAG: true       # deploy on tag push only
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# on_finish:
+#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
