@@ -22,7 +22,7 @@ class TestSum(unittest.TestCase):
     def test3(self):
         run_app(8, 8)
         run_app(0, 0)
-        run_app(1, 0)
+        run_app(1, 1)
     
 if __name__ == '__main__':
     unittest.main()
