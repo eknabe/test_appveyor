@@ -66,8 +66,8 @@ for:
           cl main.cpp "/Fe:" app.exe
 
     test_script:
-      - ps: |
-          C:\Python38\python test.py
+      - cmd:
+          C:/Python38/python test.py
 
 #deploy:
   # - provider: GitHub
