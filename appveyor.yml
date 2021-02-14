@@ -70,7 +70,7 @@ for:
 test_script:
   - echo This is my custom test script
   - ps: |
-      python --version
+      C:\Python38\python test.py
 
 #deploy:
   # - provider: GitHub
