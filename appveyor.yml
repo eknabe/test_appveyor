@@ -67,19 +67,16 @@ for:
 test_script:
   - echo This is my custom test script
   - ps: |
-        ./app 0
-        if ($lastExitCode -ne 0) {
-            throw "test failed"
-        }
-
-        ./test.py
+    "python --version"    
+# "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"  
+#    ./test.py
 
 deploy:
-  - provider: GitHub
-    tag: $(APPVEYOR_REPO_TAG_NAME)
-    release: test_appveyor $(GitVersion_MajorMinorPatch) (build $(APPVEYOR_BUILD_NUMBER))
-    description: 'Demo and binaries. For information about changes and new features see [release notes](https://github.com/esmini/esmini/blob/master/release_notes.md).'
-    auth_token:
-      secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
-    on:
-       APPVEYOR_REPO_TAG: true       # deploy on tag push only
+  # - provider: GitHub
+  #   tag: $(APPVEYOR_REPO_TAG_NAME)
+  #   release: test_appveyor $(GitVersion_MajorMinorPatch) (build $(APPVEYOR_BUILD_NUMBER))
+  #   description: 'Demo and binaries. For information about changes and new features see [release notes](https://github.com/esmini/esmini/blob/master/release_notes.md).'
+  #   auth_token:
+  #     secure: wKTE14vggGofMa87GvA3pLpShpKrkoFwaf50nFJsBu9JfTWsfqOE20skdO6Eg74u
+  #   on:
+  #      APPVEYOR_REPO_TAG: true       # deploy on tag push only
