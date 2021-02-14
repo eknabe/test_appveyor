@@ -72,8 +72,8 @@ test_script:
             throw "test failed"
         }
 
-        ./app 1
-        if ($lastExitCode -ne 0) {
+        ./app 5
+        if ($lastExitCode -ne 5) {
             throw "test failed"
         }
 
