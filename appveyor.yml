@@ -10,9 +10,10 @@ configuration: Release
 platform: x64
 
 before_build:
-  - cmd: gitversion /l console /output buildserver
-  
+#  - cmd: gitversion /l console /output buildserver
+ 
   - ps: |
+        &gitversion /l console /output buildserver
         echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\n"  | Out-File -Encoding ascii version.txt
         type version.txt
 
