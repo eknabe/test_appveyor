@@ -77,7 +77,7 @@ for:
           
     build_script:
       - sh: >-
-          echo building
+          echo building on Mac
           gcc main.cpp -o app
 
     on_finish:
