@@ -82,7 +82,7 @@ for:
         - image: macos
 
     init:
-      - echo macos build script    
+      - echo This is macos build script
       - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
           
     build_script:
