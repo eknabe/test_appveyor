@@ -55,6 +55,9 @@ for:
       - echo This is my custom test script
       - ps: |
           python3 test.py
+          
+    on_finish:
+      - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))          
       
   -
     matrix:
@@ -72,6 +75,29 @@ for:
       - cmd:
           C:/Python38/python test.py
 
+  -
+    matrix:
+      only:
+        - image: Mac
+        
+    init:
+      - echo Ubuntu build script
+      - sh: >-
+          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev
+          
+    build_script:
+      - sh: >-
+          gcc main.cpp -o app
+          
+    test_script:
+      - echo This is my custom test script
+      - ps: |
+          python3 test.py
+
+    on_finish:
+      - sh: export APPVEYOR_VNC_BLOCK=true
+      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
+
 #deploy:
   # - provider: GitHub
   #   tag: $(APPVEYOR_REPO_TAG_NAME)
@@ -82,5 +108,3 @@ for:
   #   on:
   #      APPVEYOR_REPO_TAG: true       # deploy on tag push only
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
