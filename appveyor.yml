@@ -11,16 +11,6 @@ platform: x64
 
 before_build:
   - cmd: gitversion /l console /output buildserver
- 
-  - ps: |
-        git status
-        git submodule update --init
-        echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\n"  | Out-File -Encoding ascii version.txt
-        type version.txt
-
-# artifacts:
-  # - path: 'app*'
-  # - path: '*.txt'
 
 skip_commits:
   message: /#skip_build/
