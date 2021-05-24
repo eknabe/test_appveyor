@@ -73,7 +73,7 @@ for:
 
     init:
       - echo This is the macos build script
-      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
+      # - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
           
     build_script:
       - sh: >-
