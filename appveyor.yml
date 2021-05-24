@@ -87,6 +87,7 @@ for:
           
     build_script:
       - sh: >-
+          echo building
           gcc main.cpp -o app
           
     test_script:
