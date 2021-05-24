@@ -1,8 +1,9 @@
 
 image:
+- macos
 #- Visual Studio 2017
 #- Ubuntu1804
-- macos
+
 
 configuration: Release
 
@@ -17,9 +18,9 @@ before_build:
         echo "BUILD_VERSION=`"$env:APPVEYOR_BUILD_VERSION`\n"  | Out-File -Encoding ascii version.txt
         type version.txt
 
-artifacts:
-  - path: 'app*'
-  - path: '*.txt'
+# artifacts:
+  # - path: 'app*'
+  # - path: '*.txt'
 
 skip_commits:
   message: /#skip_build/
@@ -33,7 +34,6 @@ on_success:
       {
           echo "dummy content"  | Out-File -Encoding ascii dummy.txt
       }
-
 
 for:
   -
@@ -80,12 +80,10 @@ for:
     matrix:
       only:
         - image: macos
-        
+
     init:
+      - echo macos build script    
       - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
-      - echo Ubuntu build script
-      - sh: >-
-          sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev
           
     build_script:
       - sh: >-
