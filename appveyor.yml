@@ -1,7 +1,7 @@
 
 image:
-#- macos
-- Visual Studio 2017
+- macos
+#- Visual Studio 2017
 - Ubuntu1804
 
 
@@ -84,9 +84,9 @@ for:
           echo building on Mac
           gcc main.cpp -o app
 
-#    on_finish:
-#      - sh: export APPVEYOR_VNC_BLOCK=true
-#      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
+    on_finish:
+      - sh: export APPVEYOR_VNC_BLOCK=true
+      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
 
 #deploy:
   # - provider: GitHub
