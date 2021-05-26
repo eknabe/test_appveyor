@@ -84,6 +84,13 @@ for:
           echo building on Mac
           gcc main.cpp -o app
 
+    after_build:
+      - sh: >-
+          if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
+          then 
+            echo "Store binary artifacts";
+          fi
+
     on_finish:
       - sh: export APPVEYOR_VNC_BLOCK=true
       - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
