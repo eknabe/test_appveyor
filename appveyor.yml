@@ -53,7 +53,7 @@ for:
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
           then 
             echo "Store binary artifacts";
-            echo "dummy content" > dummy.txt
+            echo "dummy content" > dummy.txt;
           else
             echo "Do not store binary artifacts";
           fi
@@ -115,7 +115,7 @@ for:
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
           then 
             echo "Store binary artifacts";
-            echo "dummy content" > dummy.txt
+            echo "dummy content" > dummy.txt;
           else
             echo "Do not store binary artifacts";
           fi
