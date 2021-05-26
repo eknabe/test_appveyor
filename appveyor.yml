@@ -48,6 +48,8 @@ for:
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
           then 
             echo "Store binary artifacts";
+          else
+            echo "Do not store binary artifacts";
           fi
           
     test_script:
@@ -78,6 +80,8 @@ for:
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
           then 
             echo "Store binary artifacts";
+          else
+            echo "Do not store binary artifacts";
           fi
 
     test_script:
@@ -99,10 +103,11 @@ for:
           gcc main.cpp -o app
 
     after_build:
-      - sh: >-
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
           then 
             echo "Store binary artifacts";
+          else
+            echo "Do not store binary artifacts";
           fi
 
     on_finish:
