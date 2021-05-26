@@ -76,13 +76,15 @@ for:
           cl main.cpp "/Fe:" app.exe
 
     after_build:
-      - sh: >-
-          if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
-          then 
-            echo "Store binary artifacts";
+      - ps: |
+          if ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -match '#store_bins' -Or $Env:APPVEYOR_REPO_TAG -eq $true)
+          {
+            echo "Store binary artifacts"
+          }
           else
-            echo "Do not store binary artifacts";
-          fi
+          {
+            echo "Do not store binary artifacts"
+          }
 
     test_script:
       - cmd:
