@@ -1,7 +1,7 @@
 
 image:
 - macos
-#- Visual Studio 2017
+- Visual Studio 2017
 - Ubuntu1804
 
 
@@ -42,6 +42,13 @@ for:
           gcc main.cpp -o app
       
           echo "Third line"
+    
+    after_build:
+      - sh: >-
+          if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
+          then 
+            echo "Store binary artifacts";
+          fi
           
     test_script:
       - echo This is my custom test script
@@ -65,6 +72,13 @@ for:
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
           
           cl main.cpp "/Fe:" app.exe
+
+    after_build:
+      - sh: >-
+          if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
+          then 
+            echo "Store binary artifacts";
+          fi
 
     test_script:
       - cmd:
@@ -92,8 +106,8 @@ for:
           fi
 
     on_finish:
-      - sh: export APPVEYOR_VNC_BLOCK=true
-      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
+#      - sh: export APPVEYOR_VNC_BLOCK=true
+#      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
 
 #deploy:
   # - provider: GitHub
