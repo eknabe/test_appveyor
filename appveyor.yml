@@ -72,11 +72,11 @@ for:
 
           if (($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 1))
           {
-            return $True
+            exit 0
           }
           else
           {
-            return $False
+            exit 1
           }
 
     on_finish:
@@ -123,13 +123,12 @@ for:
 
           if (($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 1))
           {
-            return $True
+            exit 0
           }
           else
           {
-            return $False
+            exit 1
           }
-
 
   -
     matrix:
@@ -168,11 +167,11 @@ for:
 
           if (($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 1))
           {
-            return $True
+            exit 0
           }
           else
           {
-            return $False
+            exit 1
           }
           
     on_finish:
