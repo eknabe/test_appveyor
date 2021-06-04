@@ -70,7 +70,7 @@ for:
           python3 return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 0))
+          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 1))
           {
             throw "Test NOK"
           }
@@ -117,7 +117,7 @@ for:
           C:/Python38/python return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 0))
+          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 1))
           {
             throw "Test NOK"
           }
@@ -158,7 +158,7 @@ for:
           python3 return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 0))
+          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 1))
           {
             throw "Test NOK"
           }
