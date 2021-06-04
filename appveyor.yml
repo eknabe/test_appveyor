@@ -69,20 +69,10 @@ for:
           
           python3 return_arg.py 0
           $r2 = $LASTEXITCODE
-          
-          if !($r0 -ne 0)
-          {
-            throw "test 0 failed"
-          }
 
-          if ($r1 -ne 0)
+          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 0))
           {
-            throw "test 1 failed"
-          }
-
-          if ($r2 -ne 0)
-          {
-            throw "test 2 failed"
+            throw "Test NOK"
           }
 
     on_finish:
@@ -127,20 +117,11 @@ for:
           C:/Python38/python return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          if !($r0 -ne 0)
+          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 0))
           {
-            throw "test 0 failed"
+            throw "Test NOK"
           }
 
-          if ($r1 -ne 0)
-          {
-            throw "test 1 failed"
-          }
-
-          if ($r2 -ne 0)
-          {
-            throw "test 2 failed"
-          }
 
   -
     matrix:
@@ -177,20 +158,11 @@ for:
           python3 return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          if !($r0 -ne 0)
+          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 0))
           {
-            throw "test 0 failed"
+            throw "Test NOK"
           }
 
-          if ($r1 -ne 0)
-          {
-            throw "test 1 failed"
-          }
-
-          if ($r2 -ne 0)
-          {
-            throw "test 2 failed"
-          }
 
     on_finish:
 #      - sh: export APPVEYOR_VNC_BLOCK=true
