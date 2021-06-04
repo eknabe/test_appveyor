@@ -70,8 +70,15 @@ for:
           python3 return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          $LASTEXITCODE = !(($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 0))
-          
+          if (($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 0))
+          {
+            return 0
+          }
+          else
+          {
+            return 1
+          }
+
     on_finish:
       - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))          
       
@@ -114,7 +121,14 @@ for:
           C:/Python38/python return_arg.py 0
           $r2 = $LASTEXITCODE
 
-          $LASTEXITCODE = !(($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 0))
+          if (($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 0))
+          {
+            return 0
+          }
+          else
+          {
+            return 1
+          }
 
   -
     matrix:
@@ -150,8 +164,16 @@ for:
           
           python3 return_arg.py 0
           $r2 = $LASTEXITCODE
+          
+          if (($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 0))
+          {
+            return 0
+          }
+          else
+          {
+            return 1
+          }
 
-          $LASTEXITCODE = !(($r0 -eq 0) -and ($r1 -eq 0) -and ($r2 -eq 0))
           
     on_finish:
 #      - sh: export APPVEYOR_VNC_BLOCK=true
