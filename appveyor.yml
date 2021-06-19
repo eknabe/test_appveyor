@@ -138,18 +138,9 @@ for:
     test_script:
       - echo This is my custom test script
       - ps: |
-          python3 return_arg.py 0
-          $r0 = $LASTEXITCODE
-
-          python3 return_arg.py 0
-          $r1 = $LASTEXITCODE
-          
-          python3 return_arg.py 0
-          $r2 = $LASTEXITCODE
-
-          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 1))
-          {
-            throw "Test NOK"
+          C:/Python38/python return_arg.py 0
+          if ($lastExitCode -ne 0) {
+             throw "test failed"
           }
 
 
