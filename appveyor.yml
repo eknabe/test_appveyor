@@ -109,20 +109,9 @@ for:
       - echo This is my custom test script
       - ps: |
           C:/Python38/python return_arg.py 0
-          $r0 = $LASTEXITCODE
-
-          C:/Python38/python return_arg.py 0
-          $r1 = $LASTEXITCODE
-          
-          C:/Python38/python return_arg.py 0
-          $r2 = $LASTEXITCODE
-
-          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 1))
-          {
-            throw "Test NOK"
+          if ($lastExitCode -ne 0) {
+             throw "test failed"
           }
-
-
   -
     matrix:
       only:
@@ -130,7 +119,7 @@ for:
 
     init:
       - echo This is the macos build script
-      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
+#      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
           
     build_script:
       - sh: >-
@@ -165,8 +154,8 @@ for:
 
 
     on_finish:
-#      - sh: export APPVEYOR_VNC_BLOCK=true
-#      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
+     - sh: export APPVEYOR_VNC_BLOCK=true
+     - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
 
 #deploy:
   # - provider: GitHub
