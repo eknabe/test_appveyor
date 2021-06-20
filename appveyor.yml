@@ -62,17 +62,8 @@ for:
       - echo This is my custom test script
       - ps: |
           python3 return_arg.py 0
-          $r0 = $LASTEXITCODE
-
-          python3 return_arg.py 0
-          $r1 = $LASTEXITCODE
-          
-          python3 return_arg.py 0
-          $r2 = $LASTEXITCODE
-
-          if (($r0 -ne 0) -or ($r1 -ne 0) -or ($r2 -ne 1))
-          {
-            throw "Test NOK"
+          if ($lastExitCode -ne 0) {
+             throw "test failed"
           }
 
     on_finish:
@@ -142,7 +133,6 @@ for:
           if ($lastExitCode -ne 0) {
              throw "test failed"
           }
-
 
     on_finish:
      - sh: export APPVEYOR_VNC_BLOCK=true
