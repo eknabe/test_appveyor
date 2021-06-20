@@ -138,7 +138,7 @@ for:
     test_script:
       - echo This is my custom test script
       - ps: |
-          C:/Python38/python return_arg.py 0
+          python3 return_arg.py 0
           if ($lastExitCode -ne 0) {
              throw "test failed"
           }
