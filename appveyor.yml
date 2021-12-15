@@ -77,6 +77,7 @@ for:
     init:
       # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
       - ps: curl "https://objexx.com/OpenSceneGraph/OpenSceneGraph-3.6.5-VC2019-64-Release.7z" -o osg.7z
+      - ps: curl "https://www.dropbox.com/s/xwk3a8g46g71xne/osgapp-all.zip?dl=1" -o osgapp-all.zip
   
     build_script:
       - echo Visual Studio 2017 x64 build script
