@@ -77,16 +77,17 @@ for:
     init:
       # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
       - ps: curl "https://objexx.com/OpenSceneGraph/OpenSceneGraph-3.6.5-VC2019-64-Release.7z" -o osg.7z
-      - ps: 7za x osg.7z
-      - ps: curl "https://www.dropbox.com/s/xwk3a8g46g71xne/osgapp-all.zip?dl=1" -o osgapp-all.zip
+      - ps: 7z x osg.7z
+      - ps: curl -L "https://www.dropbox.com/s/xwk3a8g46g71xne/osgapp-all.zip?dl=1" -o osgapp-all.zip
       - ps: unzip osgapp-all.zip -d osgapp
+      - ps: curl -L "https://github.com/pal1000/mesa-dist-win/releases/download/21.3.1/mesa3d-21.3.1-release-msvc.7z" -o mesa3d.7z
+      - ps: 7z x mesa3d.7z -d mesa
       - ps: git clone "https://github.com/esmini/esmini"
       - ps: cd esmini
       - ps: git checkout fetch_image_rebase
-      - ps: mkdir build
-      - ps: cd build
-      - ps: make .. -A x64
-      - ps: make --build . --config Release --target install
+      - ps: mkdir build; cd build
+      - ps: cmake .. -A x64
+      - ps: cmake --build . --config Release --target install
       - ps: cd ..
   
     build_script:
