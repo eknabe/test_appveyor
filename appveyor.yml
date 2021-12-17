@@ -1,8 +1,9 @@
 
 image:
+- Ubuntu1804
 - Visual Studio 2017
 # - macos
-- Ubuntu1804
+
 
 
 configuration: Release
@@ -15,7 +16,7 @@ cache:
 - esmini/externals/OSI -> dummy.txt
 - esmini/externals/SUMO -> dummy.txt
 - esmini/resources/models -> dummy.txt
-- mesa
+- mesa -> dummy.txt
 
 before_build:
   - cmd: gitversion /l console /output buildserver  
@@ -55,7 +56,23 @@ for:
           gcc main.cpp -o app
       
           echo "Third line"
-    
+
+          git clone "https://github.com/esmini/esmini"
+
+          cd esmini
+
+          git checkout fetch_image_rebase
+
+          mkdir build
+
+          cd build
+
+          cmake ..
+
+          cmake --build . --config Release --target install
+
+          cd ../..          
+
     after_build:
       - sh: >-
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
@@ -88,9 +105,9 @@ for:
     build_script:
       - echo Visual Studio 2017 x64 build script
       - cmd:
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+          call "c:\program files (x86)\microsoft visual studio\2017\community\vc\auxiliary\build\vcvars64.bat"
           
-          cl main.cpp "/Fe:" app.exe
+          cl main.cpp "/fe:" app.exe
           
           git clone "https://github.com/esmini/esmini"
             
@@ -98,13 +115,13 @@ for:
             
           git checkout fetch_image_rebase
             
-          mkdir buildVS2019_64_v141
+          mkdir buildvs2019_64_v141
             
-          cd buildVS2019_64_v141
+          cd buildvs2019_64_v141
             
-          cmake .. -A x64
+          rem cmake .. -a x64
             
-          cmake --build . --config Release --target install
+          rem cmake --build . --config release --target install
             
           cd ../..
 
