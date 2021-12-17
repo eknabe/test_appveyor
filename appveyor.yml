@@ -98,15 +98,15 @@ for:
             
           git checkout fetch_image_rebase
             
-          mkdir build
+          mkdir buildVS2019_64_v141
             
-          cd build
+          cd buildVS2019_64_v141
             
           cmake .. -A x64
             
           cmake --build . --config Release --target install
             
-          cd ..
+          cd ../..
 
     after_build:
       - cmd:
@@ -114,7 +114,7 @@ for:
 
           7z x mesa_win64.7z -omesa
             
-          cp mesa/opengl32.dll esmini/bin/
+          cp mesa/opengl32.dll esmini/bin
 
           cp mesa/opengl32.dll esmini/buildVS2019_64_v141/EnvironmentSimulator/Unittest/Release
           
