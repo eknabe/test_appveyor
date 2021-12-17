@@ -1,7 +1,7 @@
 
 image:
-- macos
 - Visual Studio 2017
+# - macos
 - Ubuntu1804
 
 
@@ -77,36 +77,10 @@ for:
     init:
       # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
       - cmd:
-            curl -L "https://objexx.com/OpenSceneGraph/OpenSceneGraph-3.6.5-VC2019-64-Release.7z" -o osg.7z
-            
-            7z x osg.7z
-            
-            curl -L "https://www.dropbox.com/s/xwk3a8g46g71xne/osgapp-all.zip?dl=1" -o osgapp-all.zip
-            
-            unzip osgapp-all.zip -d osgapp
-            
-            curl -L "https://github.com/pal1000/mesa-dist-win/releases/download/21.3.1/mesa3d-21.3.1-release-msvc.7z" -o mesa3d.7z
-            
-            7z x mesa3d.7z -omesa1
-
             curl -L "https://downloads.fdossena.com/geth.php?r=mesa64-latest" -o mesa_win64.7z
 
-            7z x mesa_win64.7z -omesa2
+            7z x mesa_win64.7z -omesa
             
-            git clone "https://github.com/esmini/esmini"
-            
-            cd esmini
-            
-            git checkout fetch_image_rebase
-            
-            mkdir build; cd build
-            
-            cmake .. -A x64
-            
-            cmake --build . --config Release --target install
-            
-            cd ..
-  
     build_script:
       - echo Visual Studio 2017 x64 build script
       - cmd:
@@ -114,9 +88,28 @@ for:
           
           cl main.cpp "/Fe:" app.exe
           
-          7z mesa2.7z
+          git clone "https://github.com/esmini/esmini"
+            
+          cd esmini
+            
+          git checkout fetch_image_rebase
+            
+          mkdir build
+            
+          cd build
+            
+          cmake .. -A x64
+            
+          cmake --build . --config Release --target install
+            
+          cd ..
 
     after_build:
+      - cmd:
+          cp mesa/opengl32.dll esmini/bin/
+
+          cp mesa/opengl32.dll esmini/buildVS2019_64_v141/EnvironmentSimulator/Unittest/Release
+          
       - ps: |
           if ($Env:APPVEYOR_REPO_COMMIT_MESSAGE -match '#store_bins' -Or $Env:APPVEYOR_REPO_TAG -eq $true)
           {
