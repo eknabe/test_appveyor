@@ -9,6 +9,14 @@ configuration: Release
 
 platform: x64
 
+cache:
+- esmini/externals/googletest -> dummy.txt
+- esmini/externals/OpenSceneGraph -> dummy.txt
+- esmini/externals/OSI -> dummy.txt
+- esmini/externals/SUMO -> dummy.txt
+- esmini/resources/models -> dummy.txt
+- mesa
+
 before_build:
   - cmd: gitversion /l console /output buildserver  
 
@@ -67,7 +75,7 @@ for:
           }
 
     on_finish:
-      - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))          
+      - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -       
       
   -
     matrix:
