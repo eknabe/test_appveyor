@@ -76,10 +76,6 @@ for:
         
     init:
       # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-      - cmd:
-            curl -L "https://downloads.fdossena.com/geth.php?r=mesa64-latest" -o mesa_win64.7z
-
-            7z x mesa_win64.7z -omesa
             
     build_script:
       - echo Visual Studio 2017 x64 build script
@@ -106,6 +102,10 @@ for:
 
     after_build:
       - cmd:
+          curl -L "https://downloads.fdossena.com/geth.php?r=mesa64-latest" -o mesa_win64.7z
+
+          7z x mesa_win64.7z -omesa
+            
           cp mesa/opengl32.dll esmini/bin/
 
           cp mesa/opengl32.dll esmini/buildVS2019_64_v141/EnvironmentSimulator/Unittest/Release
