@@ -78,7 +78,6 @@ for:
           cd EnvironmentSimulator/Unittest
 
           Xvfb :99 -screen 0 1920x1080x24+32 & export DISPLAY=:99
-
           ./ScenarioEngineDll_test
 
     after_build:
