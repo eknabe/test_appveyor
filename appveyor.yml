@@ -54,14 +54,18 @@ for:
           echo "First line"
       
           gcc main.cpp -o app
+          
+          mv esmini esmini-save
       
-          echo "Third line"
-
           git clone "https://github.com/esmini/esmini"
 
+          mv esmini-save/externals/* esmini/externals/
+          
+          mv esmini-save/resources/models esmini/resources
+          
           cd esmini
 
-          git checkout fetch_image_rebase
+          git checkout fetch_image_rb3
 
           mkdir build
 
