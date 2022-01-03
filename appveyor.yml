@@ -50,9 +50,7 @@ for:
           sudo apt-get install -y libgl1-mesa-dev libxrandr-dev libxinerama-dev
           
     build_script:
-      - sh: >-
-          echo "First line"
-      
+      - sh: |
           gcc main.cpp -o app
 
           mv esmini esmini-save
@@ -60,23 +58,17 @@ for:
           git clone "https://github.com/esmini/esmini"
 
           mv esmini-save/externals/* esmini/externals/
-
           mv esmini-save/resources/models esmini/resources
 
           cd esmini
-
           git checkout fetch_image_rb3
 
           mkdir build
-
           cd build
-
           cmake ..
-
           cmake --build . --config Release --target install -j
 
           cd EnvironmentSimulator/Unittest
-
           Xvfb :99 -screen 0 1920x1080x24+32 & export DISPLAY=:99
           ./ScenarioEngineDll_test
 
