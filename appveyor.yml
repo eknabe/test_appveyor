@@ -68,9 +68,12 @@ for:
           cmake ..
           cmake --build . --config Release --target install -j
 
+      - ps: |
           cd EnvironmentSimulator/Unittest
-          Xvfb :99 -screen 0 1920x1080x24+32 & export DISPLAY=:99
+          Xvfb :99 -screen 0 1920x1080x24+32
+          $env:DISPLAY=:99
           ./ScenarioEngineDll_test
+          dir *.tga, *.ppm
 
     after_build:
       - sh: >-
