@@ -37,8 +37,10 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_ios_mac.pkg.tgz" -o fbx202021_fbxsdk_ios_mac.pkg.tgz
     tar xzvf fbx202021_fbxsdk_ios_mac.pkg.tgz
-    sudo installer -pkg fbx202021_fbxsdk_ios_mac.pkg -target /
+#    sudo installer -pkg fbx202021_fbxsdk_ios_mac.pkg -target /
 fi
+
+exit
 
 # OSG source
 git clone https://github.com/OpenSceneGraph/OpenSceneGraph
