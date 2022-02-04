@@ -4,8 +4,12 @@
 #
 # Preparations:
 #   Make sure you have tiff and jpeg support. Run the following commands:
-#     sudo apt install libtiff-dev
-#     sudo apt install libjpeg-dev
+#     Linux:
+#       sudo apt install libtiff-dev
+#       sudo apt install libjpeg-dev
+#     Mac:
+#       brew install libtiff
+#       brew install libjpeg
 #
 # Script steps:
 #   1. Fetch FBX SDK (headers and pre-compiled libraries)
@@ -40,14 +44,11 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_ios_mac.pkg.tgz" -o fbx202021_fbxsdk_ios_mac.pkg.tgz
     tar xzvf fbx202021_fbxsdk_ios_mac.pkg.tgz
-#    open fbx202021_fbxsdk_ios_mac.pkg
-    sudo installer -pkg fbx202021_fbxsdk_ios_mac.pkg -target /
+    sudo installer -pkg fbx202021_fbxsdk_ios_macos.pkg -target /
     fbx_include="/Applications/Autodesk/FBX SDK/2020.2.1/include"
     fbx_lib_release="/Applications/Autodesk/FBX SDK/2020.2.1/lib/ios/release/libfbxsdk.a"
     fbx_lib_debug="/Applications/Autodesk/FBX SDK/2020.2.1/lib/ios/debug/libfbxsdk.a"
 fi
-
-exit
 
 # OSG source
 git clone https://github.com/OpenSceneGraph/OpenSceneGraph
@@ -67,7 +68,10 @@ cd build-dyn
 cmake -DFBX_INCLUDE_DIR=$fbx_include -DFBX_LIBRARY=$fbx_lib_release -DFBX_LIBRARY_DEBUG=$fbx_lib_debug -DCMAKE_INSTALL_PREFIX=../../osg -DFBX_XML2_LIBRARY=libxml2.so -DFBX_ZLIB_LIBRARY=libz.so ..
 
 cmake --build . --config Release --target install -j 4
-cp -r ../../fbxsdk/include/* ../../osg/include
-cp -r ../../fbxsdk/lib/gcc/x64/release/* ../../osg/lib
+
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    cp -r ../../fbxsdk/include/* ../../osg/include
+    cp -r ../../fbxsdk/lib/gcc/x64/release/* ../../osg/lib
+fi
 
 cd $osg_root_dir
