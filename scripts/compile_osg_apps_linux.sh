@@ -2,15 +2,6 @@
 
 # This script will build OSG applications, including "osgviewer" and "osgconv" on linux
 #
-# Preparations:
-#   Make sure you have tiff and jpeg support. Run the following commands:
-#     Linux:
-#       sudo apt install libtiff-dev
-#       sudo apt install libjpeg-dev
-#     Mac:
-#       brew install libtiff
-#       brew install libjpeg
-#
 # Script steps:
 #   1. Fetch FBX SDK (headers and pre-compiled libraries)
 #   2. Extract FBX files. NOTE: User input is required "yes" to license and "n" to skip readme
@@ -34,6 +25,8 @@ osg_root_dir=$(pwd)
 # FBX
 mkdir fbxsdk
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    sudo apt install libtiff-dev
+    sudo apt install libjpeg-dev
     curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-0-1/fbx202001_fbxsdk_linux.tar.gz" -o fbx202001_fbxsdk_linux.tar.gz
     tar xzvf fbx202001_fbxsdk_linux.tar.gz --directory fbxsdk
     ./fbxsdk/fbx202001_fbxsdk_linux ./fbxsdk
@@ -42,6 +35,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fbx_lib_debug="../../fbxsdk/lib/gcc/x64/debug/libfbxsdk.so"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+    brew install libtiff
+    brew install libjpeg
     curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_ios_mac.pkg.tgz" -o fbx202021_fbxsdk_ios_mac.pkg.tgz
     tar xzvf fbx202021_fbxsdk_ios_mac.pkg.tgz
     sudo installer -pkg fbx202021_fbxsdk_ios_macos.pkg -target /
@@ -67,7 +62,7 @@ cd build-dyn
 # Compile OSG with standard settings; dynamic linking and without examples
 cmake -DFBX_INCLUDE_DIR=$fbx_include -DFBX_LIBRARY=$fbx_lib_release -DFBX_LIBRARY_DEBUG=$fbx_lib_debug -DCMAKE_INSTALL_PREFIX=../../osg -DFBX_XML2_LIBRARY=libxml2.so -DFBX_ZLIB_LIBRARY=libz.so ..
 
-cmake --build . --config Release --target install -j 4
+# cmake --build . --config Release --target install -j 4
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     cp -r ../../fbxsdk/include/* ../../osg/include
