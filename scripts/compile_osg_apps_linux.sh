@@ -21,18 +21,14 @@
 
 OSG_VERSION=OpenSceneGraph-3.6.5
 osg_root_dir=$(pwd)
-
-# FBX
-if [ ! -d fbxsdk ]; then
-    mkdir fbxsdk
-fi
-
 thirdparty=""
+
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
-    # curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-0-1/fbx202001_fbxsdk_linux.tar.gz" -o fbx202001_fbxsdk_linux.tar.gz
-    # tar xzvf fbx202001_fbxsdk_linux.tar.gz --directory fbxsdk
-    # ./fbxsdk/fbx202001_fbxsdk_linux ./fbxsdk
+    curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-0-1/fbx202001_fbxsdk_linux.tar.gz" -o fbx202001_fbxsdk_linux.tar.gz
+    [ ! -d fbxsdk ] && mkdir fbxsdk
+    tar xzvf fbx202001_fbxsdk_linux.tar.gz --directory fbxsdk
+    ./fbxsdk/fbx202001_fbxsdk_linux ./fbxsdk
 
     sudo apt install libtiff-dev
     sudo apt install libjpeg-dev
@@ -52,19 +48,19 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     brew install libtiff
     brew install libjpeg
 
-    fbx_include="/Applications/Autodesk/FBX SDK/2020.2.1/fbxsdk/include"
-    fbx_lib_release="/Applications/Autodesk/FBX SDK/2020.2.1/fbxsdk/lib/ios/release/libfbxsdk.a"
-    fbx_lib_debug="/Applications/Autodesk/FBX SDK/2020.2.1/fbxsdk/lib/ios/debug/libfbxsdk.a"
+    fbx_include="/Applications/Autodesk/FBX SDK/2020.2.1/include"
+    fbx_lib_release="/Applications/Autodesk/FBX SDK/2020.2.1/lib/ios/release/libfbxsdk.a"
+    fbx_lib_debug="/Applications/Autodesk/FBX SDK/2020.2.1/lib/ios/debug/libfbxsdk.a"
     fbx_xml_lib=libxml2.so
     fbx_zlib_lib=libz.so
     
 elif [[ "$OSTYPE" == "msys" ]]; then
 
-    # curl --user-agent  "Mozilla/5.0" -L https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_vs2017_win.exe -o fbx202021_fbxsdk_vs2017_win.exe
-    # explorer fbx202021_fbxsdk_vs2017_win.exe
+    curl --user-agent  "Mozilla/5.0" -L https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_vs2017_win.exe -o fbx202021_fbxsdk_vs2017_win.exe
+    explorer fbx202021_fbxsdk_vs2017_win.exe
 
-    # curl -L https://download.osgvisual.org/3rdParty_VS2017_v141_x64_V11_full.7z -o 3rdParty_VS2017_v141_x64_V11_full.7z
-    # "/c/Program Files/7-Zip/7z" x 3rdParty_VS2017_v141_x64_V11_full.7z
+    curl -L https://download.osgvisual.org/3rdParty_VS2017_v141_x64_V11_full.7z -o 3rdParty_VS2017_v141_x64_V11_full.7z
+    "/c/Program Files/7-Zip/7z" x 3rdParty_VS2017_v141_x64_V11_full.7z
 
     fbx_include="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/include"
     fbx_lib_release="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/libfbxsdk-md.lib"
@@ -93,10 +89,5 @@ cd build-dyn
 cmake -DFBX_INCLUDE_DIR="$fbx_include" -DFBX_LIBRARY="$fbx_lib_release" -DFBX_LIBRARY_DEBUG="$fbx_lib_debug" -DCMAKE_INSTALL_PREFIX=../../osg -DFBX_XML2_LIBRARY="$fbx_xml_lib" -DFBX_ZLIB_LIBRARY="$fbx_zlib_lib" -DACTUAL_3RDPARTY_DIR=$thirdparty ..
 
 cmake --build . -j 4 --config Release --target install
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    cp -r ../../fbxsdk/include/* ../../osg/include
-    cp -r ../../fbxsdk/lib/gcc/x64/release/* ../../osg/lib
-fi
 
 cd $osg_root_dir

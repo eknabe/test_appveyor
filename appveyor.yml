@@ -118,6 +118,7 @@ for:
       - sh: >-
           echo building on Mac
           gcc main.cpp -o app
+          chmod +x ./scripts/compile_osg_apps_linux.sh
           ./scripts/compile_osg_apps_linux.sh
           
 
