@@ -43,16 +43,16 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 
     curl --user-agent  "Mozilla/5.0" -L "https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_clang_mac.pkg.tgz" -o fbx202021_fbxsdk_clang_mac.pkg.tgz
     tar xzvf fbx202021_fbxsdk_clang_mac.pkg.tgz
-    sudo installer -pkg fbx202021_fbxsdk_clang_mac.pkg.tgz -target /
+    sudo installer -pkg fbx202021_fbxsdk_clang_macos.pkg -target /
     
     brew install libtiff
     brew install libjpeg
 
     fbx_include="/Applications/Autodesk/FBX SDK/2020.2.1/include"
-    fbx_lib_release="/Applications/Autodesk/FBX SDK/2020.2.1/lib/release/libfbxsdk.a"
-    fbx_lib_debug="/Applications/Autodesk/FBX SDK/2020.2.1/lib/debug/libfbxsdk.a"
-    fbx_xml_lib=libxml2.so
-    fbx_zlib_lib=libz.so
+    fbx_lib_release="/Applications/Autodesk/FBX SDK/2020.2.1/lib/clang/release/libfbxsdk.a"
+    fbx_lib_debug="/Applications/Autodesk/FBX SDK/2020.2.1/lib/clang/debug/libfbxsdk.a"
+    fbx_xml_lib=libxml2.dylib
+    fbx_zlib_lib=libz.dylib
     
 elif [[ "$OSTYPE" == "msys" ]]; then
 

@@ -125,7 +125,7 @@ for:
           chmod +x ./scripts/compile_osg_apps_linux.sh
             
 #          ./scripts/compile_osg_apps_linux.sh
-          
+         
 
     after_build:
           if [[ $APPVEYOR_REPO_COMMIT_MESSAGE = *#store_bins* ]] || [ "$APPVEYOR_REPO_TAG" == "true" ]; 
