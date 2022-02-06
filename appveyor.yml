@@ -117,9 +117,14 @@ for:
     build_script:
       - sh: >-
           echo building on Mac
+
           gcc main.cpp -o app
+
+          curl --user-agent  "Mozilla/5.0" -L https://www.dropbox.com/s/4mmi9uym6d8v4nf/car_white.osgb?dl=1 -o car_white.osgb
+
           chmod +x ./scripts/compile_osg_apps_linux.sh
-          ./scripts/compile_osg_apps_linux.sh
+            
+#          ./scripts/compile_osg_apps_linux.sh
           
 
     after_build:
