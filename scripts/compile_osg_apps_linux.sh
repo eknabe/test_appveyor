@@ -10,11 +10,22 @@
 #   5. Compile OSG and copy binaries to install folder "./osg" (2nd cmake command)
 #
 # After the script is done:
-#   If desired the created osg folder can be moved, e.g to the $HOME directory:
-#     mv osg ~/
+#   If desired the created osg folder can be moved, e.g to the home directory. 
 #   To run the applications some paths need to be set accordingly:
-#     export LD_LIBRARY_PATH="$HOME/osg/lib:$LD_LIBRARY_PATH"
-#     export PATH="$HOME/osg/bin:$PATH"
+#     Windows powershell:
+#       move osg $env:userprofile
+#       $env:path="$env:path;$env:userprofile/osg/bin;$env:userprofile/osg/lib"
+#     Windows cmd:
+#       move osg %userprofile%
+#       set path=%path%;%userprofile%/osg/bin;%userprofile%/osg/lib
+#     Linux:
+#       mv osg ~/
+#       export LD_LIBRARY_PATH="$HOME/osg/lib:$LD_LIBRARY_PATH"
+#       export PATH="$HOME/osg/bin:$PATH"
+#     macOS:
+#       mv osg ~/
+#       export DYLD_LIBRARY_PATH="$HOME/osg/lib:$DYLD_LIBRARY_PATH"
+#       export PATH="$HOME/osg/bin:$PATH"
 #   Then try:
 #     osgviewer ~/esmini/resources/models/car_white.osgb --window 60 60 800 400
 #     (possibly you need to change the path to your esmini root folder)
@@ -57,16 +68,16 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 elif [[ "$OSTYPE" == "msys" ]]; then
 
     curl --user-agent  "Mozilla/5.0" -L https://www.autodesk.com/content/dam/autodesk/www/adn/fbx/2020-2-1/fbx202021_fbxsdk_vs2017_win.exe -o fbx202021_fbxsdk_vs2017_win.exe
-    explorer fbx202021_fbxsdk_vs2017_win.exe
+    powershell -Command "Start-Process fbx202021_fbxsdk_vs2017_win.exe -ArgumentList /S -Wait"
 
     curl -L https://download.osgvisual.org/3rdParty_VS2017_v141_x64_V11_full.7z -o 3rdParty_VS2017_v141_x64_V11_full.7z
-    "/c/Program Files/7-Zip/7z" x 3rdParty_VS2017_v141_x64_V11_full.7z
+    "$PROGRAMFILES/7-Zip/7z" x 3rdParty_VS2017_v141_x64_V11_full.7z
 
-    fbx_include="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/include"
-    fbx_lib_release="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/libfbxsdk-md.lib"
-    fbx_lib_debug="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/debug/libfbxsdk-md.lib"
-    fbx_xml_lib="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/libxml2-md.lib"
-    fbx_zlib_lib="c:/Program Files/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/zlib-md.lib"
+    fbx_include="$PROGRAMFILES/Autodesk/FBX/FBX SDK/2020.2.1/include"
+    fbx_lib_release="$PROGRAMFILES/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/libfbxsdk-md.lib"
+    fbx_lib_debug="$PROGRAMFILES/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/debug/libfbxsdk-md.lib"
+    fbx_xml_lib="$PROGRAMFILES/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/libxml2-md.lib"
+    fbx_zlib_lib="$PROGRAMFILES/Autodesk/FBX/FBX SDK/2020.2.1/lib/vs2017/x64/release/zlib-md.lib"
     thirdparty="../../3rdParty_x64/x64"    
 fi
 
