@@ -78,28 +78,23 @@ for:
       # - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
             
     build_script:
-      - echo Visual Studio 2017 x64 build script
-      - cmd:
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
-          
-          cl main.cpp "/Fe:" app.exe
-          
-          git clone "https://github.com/esmini/esmini"
-            
-          cd esmini
-            
-          git checkout fetch_image_rebase
-            
-          mkdir build
-            
-          cd build
-            
-          cmake .. -A x64
-            
-          cmake --build . --config Release --target install
-            
-          cd ..
+    - ps: >-
+        echo MinGW-w64 test
+        git clone "https://github.com/esmini/esmini"
+        cd esmini
+        mkdir build
+        cd build
+        
+        # Update MSYS2
+        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"  # Core update (in case any core packages are outdated)
+        C:\msys64\usr\bin\bash -lc "pacman --noconfirm -Syuu"  # Normal update
 
+        # Then run your code
+        $env:CHERE_INVOKING = 'yes'  # Preserve the current working directory
+        $env:MSYSTEM = 'MINGW64'  # Start a 64 bit Mingw environment
+        echo "cmake .. -G `"MinGW Makefiles`" -DCMAKE_BUILD_TYPE=Release´ncmake --build . --target install --config Release" > ci-build.sh
+        C:\msys64\usr\bin\bash -lc "./ci-build.sh"
+ 
     after_build:
       - cmd:
           curl -L "https://downloads.fdossena.com/geth.php?r=mesa64-latest" -o mesa_win64.7z
