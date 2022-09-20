@@ -224,19 +224,19 @@ if [ ! -d OpenSceneGraph/build ]; then
 
         cmake ../ -DOSG_AGGRESSIVE_WARNINGS=False -DDYNAMIC_OPENSCENEGRAPH=false -DDYNAMIC_OPENTHREADS=false -DBUILD_OSG_APPLICATIONS=False -DOPENGL_PROFILE=GL2 -DBUILD_OSG_DEPRECATED_SERIALIZERS=False -DCMAKE_CXX_FLAGS=-fPIC -DJPEG_LIBRARY=$osg_root_dir/jpeg-9e/.libs/libjpeg.a -DJPEG_INCLUDE_DIR=$osg_root_dir/jpeg-9e -DFBX_INCLUDE_DIR="$fbx_include" -DFBX_LIBRARY="$fbx_lib_release" -DFBX_LIBRARY_DEBUG="$fbx_lib_debug" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install 
  
-        make -j16 install
+        make -j$PARALLEL_BUILDS install
 
         # build debug variant
         rm CMakeCache.txt
 
         cmake ../ -DOSG_AGGRESSIVE_WARNINGS=False -DDYNAMIC_OPENSCENEGRAPH=false -DDYNAMIC_OPENTHREADS=false -DBUILD_OSG_APPLICATIONS=False -DOPENGL_PROFILE=GL2 -DBUILD_OSG_DEPRECATED_SERIALIZERS=False -DCMAKE_CXX_FLAGS=-fPIC -DJPEG_LIBRARY=$osg_root_dir/jpeg-9e/.libsd/libjpegd.a -DJPEG_INCLUDE_DIR=$osg_root_dir/jpeg-9e -DFBX_INCLUDE_DIR="$fbx_include" -DFBX_LIBRARY="$fbx_lib_debug" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../install-debug
 
-        make -j16 install
+        make -j$PARALLEL_BUILDS install
 
     elif [[ "$OSTYPE" == "darwin"* ]]; then
         cmake ../ -DDYNAMIC_OPENSCENEGRAPH=false -DDYNAMIC_OPENTHREADS=false -DOPENGL_PROFILE=GL2 -DJPEG_LIBRARY_RELEASE=$osg_root_dir/jpeg-9e/.libs/libjpeg.a -DJPEG_INCLUDE_DIR=$osg_root_dir/jpeg-9e -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS=-fPIC -DCMAKE_OSX_ARCHITECTURES="$macos_arch" -DCMAKE_INSTALL_PREFIX=../install
 
-        cmake --build . -j $PARALLEL_BUILDS -j 16 --config Release --target install
+        cmake --build . -j $PARALLEL_BUILDS --config Release --target install
 
     elif [ "$OSTYPE" == "msys" ]; then
         cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} ../ -DDYNAMIC_OPENSCENEGRAPH=false -DOPENGL_PROFILE=GL3 -DDYNAMIC_OPENTHREADS=false -DCMAKE_INSTALL_PREFIX=../install -DACTUAL_3RDPARTY_DIR=../../3rdParty_x64/x64 -DFBX_INCLUDE_DIR="$fbx_include" -DFBX_LIBRARY="$fbx_lib_release" -DFBX_LIBRARY_DEBUG="$fbx_lib_debug" -DFBX_XML2_LIBRARY="$fbx_xml_lib_debug" -DFBX_ZLIB_LIBRARY="$fbx_zlib_lib_debug"
