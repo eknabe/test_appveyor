@@ -63,6 +63,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     target_dir="mac"
     zfilename="osi_mac.7z"
     z_exe=7z
+    macos_arch="arm64;x86_64"
 else
     echo Unknown OSTYPE: $OSTYPE
 fi
@@ -102,7 +103,7 @@ then
         cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install -DCMAKE_BUILD_TYPE=Release .. -DCMAKE_C_FLAGS="-fPIC"
         cmake --build . --target install
     elif [[ "$OSTYPE" == "darwin"* ]]; then
-        cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install -DCMAKE_BUILD_TYPE=Release .. -DCMAKE_C_FLAGS="-fPIC"
+        cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install -DCMAKE_BUILD_TYPE=Release .. -DCMAKE_C_FLAGS="-fPIC" -DCMAKE_OSX_ARCHITECTURES="$macos_arch"
         cmake --build . --target install
     else
         cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install ..
@@ -179,9 +180,10 @@ function build {
         if [[ "$OSTYPE" != "darwin"* ]]; then
             cmake ../cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_LIBRARY=../../zlib-1.2.11/install/lib/$ZLIB_FILE_DEBUG -DZLIB_INCLUDE_DIR=../../zlib-1.2.11/install/include -DCMAKE_INSTALL_PREFIX=$INSTALL_PROTOBUF_DIR -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_WITH_ZLIB=ON -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -DCMAKE_BUILD_TYPE=Debug $ADDITIONAL_CMAKE_PARAMETERS
             cmake --build . --config Debug --target install --clean-first
+            rm CMakeCache.txt
+        else
+            ADDITIONAL_CMAKE_PARAMETERS+=-DCMAKE_OSX_ARCHITECTURES="$macos_arch"
         fi
-
-        rm CMakeCache.txt
 
         cmake ../cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_LIBRARY=../../zlib-1.2.11/install/lib/$ZLIB_FILE_RELEASE -DZLIB_INCLUDE_DIR=../../zlib-1.2.11/install/include -DCMAKE_INSTALL_PREFIX=$INSTALL_PROTOBUF_DIR -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_WITH_ZLIB=ON -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -DCMAKE_BUILD_TYPE=Release $ADDITIONAL_CMAKE_PARAMETERS
         cmake --build . --config Release --target install --clean-first
@@ -239,6 +241,8 @@ function build {
                 mv $INSTALL_OSI_LIB_DIR/lib/osi3/open_simulation_interface_pic.lib $INSTALL_OSI_LIB_DIR/lib/osi3/open_simulation_interface_picd.lib
                 mv $INSTALL_OSI_LIB_DIR/lib/osi3/open_simulation_interface_static.lib $INSTALL_OSI_LIB_DIR/lib/osi3/open_simulation_interface_staticd.lib
             fi
+        else
+            ADDITIONAL_CMAKE_PARAMETERS+=-DCMAKE_OSX_ARCHITECTURES="$macos_arch"
         fi
 
         rm CMakeCache.txt

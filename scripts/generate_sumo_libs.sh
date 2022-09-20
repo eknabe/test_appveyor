@@ -71,6 +71,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     target_dir="mac"
     zfilename="sumo_mac.7z"
     z_exe=7z
+    macos_arch="arm64;x86_64"
 else
     echo Unknown OSTYPE: $OSTYPE
 fi
@@ -98,16 +99,19 @@ then
     cd build
 
     if [[ "$OSTYPE" == "darwin"* ]] || [[ "$OSTYPE" == "linux"* ]]; then
+        ADDITIONAL_CMAKE_PARAMETERS="-DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS=-fPIC"
 
         if [[ "$OSTYPE" == "linux"* ]]; then
             # Also build debug version on Linux
-            cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-fPIC" ..
+            cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install $ADDITIONAL_CMAKE_PARAMETERS ..
             cmake --build . --target install
             mv ../install/lib/libz.${LIB_EXT} ../install/lib/libzlibstaticd.${LIB_EXT}
             rm CMakeCache.txt
+        else
+            ADDITIONAL_CMAKE_PARAMETERS+=-DCMAKE_OSX_ARCHITECTURES="$macos_arch"
         fi
 
-        cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-fPIC" ..
+        cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -D CMAKE_INSTALL_PREFIX=../install $ADDITIONAL_CMAKE_PARAMETERS ..
         cmake --build . --target install
         mv ../install/lib/libz.${LIB_EXT} ../install/lib/libzlibstatic.${LIB_EXT}
 
@@ -140,15 +144,18 @@ if [ ! -d xerces-c-3.2.2 ]; then
     sed -ie 's/include(XercesICU)/#include(XercesICU)/g' CMakeLists.txt
 
     if [[ "$OSTYPE" == "darwin"* ]] || [[ "$OSTYPE" == "linux"* ]]; then
+        ADDITIONAL_CMAKE_PARAMETERS="-Dnetwork=OFF -DCMAKE_CXX_FLAGS=-fPIC"
         if [[ "$OSTYPE" == "linux"* ]]; then
             # Build debug version only on Linux (and Win)
-            cmake . -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=xerces-install -DCMAKE_BUILD_TYPE=Debug -Dnetwork=OFF -DCMAKE_CXX_FLAGS="-fPIC"
+            cmake . -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=xerces-install -DCMAKE_BUILD_TYPE=Debug $ADDITIONAL_CMAKE_PARAMETERS
             cmake --build . --target install
             mv xerces-install/lib/libxerces-c-3.2.${LIB_EXT} xerces-install/lib/libxerces-c_3D.${LIB_EXT}
             rm CMakeCache.txt
+        else
+            ADDITIONAL_CMAKE_PARAMETERS+=-DCMAKE_OSX_ARCHITECTURES="$macos_arch"
         fi
 
-        cmake . -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=xerces-install -DCMAKE_BUILD_TYPE=Release -Dnetwork=OFF -DCMAKE_CXX_FLAGS="-fPIC"
+        cmake . -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DBUILD_SHARED_LIBS=OFF -DCMAKE_INSTALL_PREFIX=xerces-install -DCMAKE_BUILD_TYPE=Release $ADDITIONAL_CMAKE_PARAMETERS
         cmake --build . --target install
         mv xerces-install/lib/libxerces-c-3.2.${LIB_EXT} xerces-install/lib/libxerces-c_3.${LIB_EXT}
 
@@ -180,8 +187,10 @@ if [ ! -d sumo ]; then
     XercesC_INCLUDE_DIR=$sumo_root_dir/xerces-c-3.2.2/xerces-install/include
     XercesC_VERSION=3.2.2
 
+    ADDITIONAL_CMAKE_PARAMETERS="-DXercesC_INCLUDE_DIR=${XercesC_INCLUDE_DIR} -DENABLE_PYTHON_BINDINGS=OFF -DENABLE_JAVA_BINDINGS=OFF -DCHECK_OPTIONAL_LIBS=OFF -DXercesC_VERSION=${XercesC_VERSION} -DPROJ_LIBRARY= -DFOX_CONFIG= 
+
     if [[ "$OSTYPE" != "darwin"* ]]; then
-        cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.11/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_DEBUG} -DENABLE_PYTHON_BINDINGS=OFF -DENABLE_JAVA_BINDINGS=OFF -DCHECK_OPTIONAL_LIBS=OFF -DCMAKE_BUILD_TYPE=Debug -DXercesC_INCLUDE_DIR=${XercesC_INCLUDE_DIR} -DXercesC_LIBRARY=${XercesC_LIBRARY_DEBUG} -DXercesC_VERSION=${XercesC_VERSION} -DPROJ_LIBRARY= -DFOX_CONFIG=
+        cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.11/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_DEBUG} -DCMAKE_BUILD_TYPE=Debug  -DXercesC_LIBRARY=${XercesC_LIBRARY_DEBUG} $ADDITIONAL_CMAKE_PARAMETERS
         cmake --build . --config Debug
 
         for f in ${LIB_PREFIX}libsumostatic.${LIB_EXT} ${LIB_PREFIX}microsim_engine.${LIB_EXT} ${LIB_PREFIX}foreign_tcpip.${LIB_EXT} ${LIB_PREFIX}utils_traction_wire.${LIB_EXT} ${LIB_PREFIX}microsim_trigger.${LIB_EXT} ${LIB_PREFIX}microsim_actions.${LIB_EXT} ${LIB_PREFIX}traciserver.${LIB_EXT} ${LIB_PREFIX}mesosim.${LIB_EXT} ${LIB_PREFIX}foreign_phemlight.${LIB_EXT} ${LIB_PREFIX}microsim_cfmodels.${LIB_EXT} ${LIB_PREFIX}utils_iodevices.${LIB_EXT} ${LIB_PREFIX}microsim_lcmodels.${LIB_EXT} ${LIB_PREFIX}microsim_traffic_lights.${LIB_EXT} ${LIB_PREFIX}utils_shapes.${LIB_EXT} ${LIB_PREFIX}utils_emissions.${LIB_EXT} ${LIB_PREFIX}microsim_output.${LIB_EXT} ${LIB_PREFIX}netload.${LIB_EXT} ${LIB_PREFIX}microsim_devices.${LIB_EXT} ${LIB_PREFIX}microsim_transportables.${LIB_EXT} ${LIB_PREFIX}microsim.${LIB_EXT} ${LIB_PREFIX}utils_xml.${LIB_EXT} ${LIB_PREFIX}utils_vehicle.${LIB_EXT} ${LIB_PREFIX}utils_geom.${LIB_EXT} ${LIB_PREFIX}utils_common.${LIB_EXT} ${LIB_PREFIX}utils_distribution.${LIB_EXT} ${LIB_PREFIX}utils_options.${LIB_EXT}
@@ -197,13 +206,12 @@ if [ ! -d sumo ]; then
         done
 
         rm CMakeCache.txt
-    fi
-
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+    else
+        ADDITIONAL_CMAKE_PARAMETERS+=-DCMAKE_OSX_ARCHITECTURES="$macos_arch"
         export LDFLAGS="-framework CoreServices"
     fi
 
-    cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.11/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_RELEASE} -DENABLE_PYTHON_BINDINGS=OFF -DENABLE_JAVA_BINDINGS=OFF -DCHECK_OPTIONAL_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DXercesC_INCLUDE_DIR=${XercesC_INCLUDE_DIR} -DXercesC_LIBRARY=${XercesC_LIBRARY_RELEASE} -DXercesC_VERSION=${XercesC_VERSION}
+    cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.11/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_RELEASE} -DCMAKE_BUILD_TYPE=Release -DXercesC_LIBRARY=${XercesC_LIBRARY_RELEASE} $ADDITIONAL_CMAKE_PARAMETERS
 
     cmake --build . --config Release --clean-first
 
