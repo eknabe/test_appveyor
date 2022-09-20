@@ -30,6 +30,7 @@
 PROTOBUF_VERSION=3.15.2
 OSI_VERSION=3.3.1
 PARALLEL_BUILDS=8
+ZIP_MIN_VERSION=12
 
 if [ "$OSTYPE" == "msys" ]; then
     # Visual Studio 2019 - toolkit from Visual Studio 2017
@@ -84,13 +85,13 @@ osi_root_dir=$(pwd)
 echo ------------------------ Installing zlib ------------------------------------
 cd $osi_root_dir
 
-if [ ! -d zlib-1.2.12 ]
+if [ ! -d zlib-1.2.$ZIP_MIN_VERSION ]
 then
-    if [ ! -f zlib1212.zip ]; then
-        curl "https://zlib.net/zlib1212.zip" -o zlib1212.zip
+    if [ ! -f zlib12$ZIP_MIN_VERSION.zip ]; then
+        curl "https://zlib.net/zlib12$ZIP_MIN_VERSION.zip" -o zlib12$ZIP_MIN_VERSION.zip
     fi
-    unzip zlib1212.zip
-    cd zlib-1.2.12
+    unzip zlib12$ZIP_MIN_VERSION.zip
+    cd zlib-1.2.$ZIP_MIN_VERSION
     mkdir install
     mkdir build
     cd build
@@ -179,14 +180,14 @@ function build {
         fi
 
         if [[ "$OSTYPE" != "darwin"* ]]; then
-            cmake ../cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_LIBRARY=../../zlib-1.2.11/install/lib/$ZLIB_FILE_DEBUG -DZLIB_INCLUDE_DIR=../../zlib-1.2.11/install/include -DCMAKE_INSTALL_PREFIX=$INSTALL_PROTOBUF_DIR -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_WITH_ZLIB=ON -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -DCMAKE_BUILD_TYPE=Debug $ADDITIONAL_CMAKE_PARAMETERS
+            cmake ../cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_LIBRARY=../../zlib-1.2.$ZIP_MIN_VERSION/install/lib/$ZLIB_FILE_DEBUG -DZLIB_INCLUDE_DIR=../../zlib-1.2.$ZIP_MIN_VERSION/install/include -DCMAKE_INSTALL_PREFIX=$INSTALL_PROTOBUF_DIR -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_WITH_ZLIB=ON -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -DCMAKE_BUILD_TYPE=Debug $ADDITIONAL_CMAKE_PARAMETERS
             cmake --build . -j $PARALLEL_BUILDS --config Debug --target install --clean-first
             rm CMakeCache.txt
         else
             ADDITIONAL_CMAKE_PARAMETERS+=" -DCMAKE_OSX_ARCHITECTURES=$macos_arch"
         fi
 
-        cmake ../cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_LIBRARY=../../zlib-1.2.11/install/lib/$ZLIB_FILE_RELEASE -DZLIB_INCLUDE_DIR=../../zlib-1.2.11/install/include -DCMAKE_INSTALL_PREFIX=$INSTALL_PROTOBUF_DIR -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_WITH_ZLIB=ON -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -DCMAKE_BUILD_TYPE=Release $ADDITIONAL_CMAKE_PARAMETERS
+        cmake ../cmake -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_LIBRARY=../../zlib-1.2.$ZIP_MIN_VERSION/install/lib/$ZLIB_FILE_RELEASE -DZLIB_INCLUDE_DIR=../../zlib-1.2.$ZIP_MIN_VERSION/install/include -DCMAKE_INSTALL_PREFIX=$INSTALL_PROTOBUF_DIR -Dprotobuf_BUILD_TESTS=OFF -Dprotobuf_WITH_ZLIB=ON -Dprotobuf_MSVC_STATIC_RUNTIME=OFF -DCMAKE_BUILD_TYPE=Release $ADDITIONAL_CMAKE_PARAMETERS
         cmake --build . -j $PARALLEL_BUILDS --config Release --target install --clean-first
 
     else

@@ -31,6 +31,7 @@
 # Review and update settings in this section according to your system and preferences
 
 PARALLEL_BUILDS=8
+ZIP_MIN_VERSION=12
 
 if [ "$OSTYPE" == "msys" ]; then
     # Visual Studio 2019 - toolkit from Visual Studio 2017
@@ -89,13 +90,13 @@ sumo_root_dir=$(pwd)
 echo ------------------------ Installing zlib ------------------------------------
 cd $sumo_root_dir
 
-if [ ! -d zlib-1.2.11 ]
+if [ ! -d zlib-1.2.$ZIP_MIN_VERSION ]
 then
-    if [ ! -f zlib1212.zip ]; then
-        curl "https://zlib.net/zlib1212.zip" -o zlib1212.zip
+    if [ ! -f zlib12$ZIP_MIN_VERSION.zip ]; then
+        curl "https://zlib.net/zlib12$ZIP_MIN_VERSION.zip" -o zlib12$ZIP_MIN_VERSION.zip
     fi
-    unzip zlib1212.zip
-    cd zlib-1.2.12
+    unzip zlib12$ZIP_MIN_VERSION.zip
+    cd zlib-1.2.$ZIP_MIN_VERSION
     mkdir install
     mkdir build
     cd build
@@ -181,8 +182,8 @@ if [ ! -d sumo ]; then
 
     mkdir build-code; cd build-code
 
-    ZLIB_LIBRARY_RELEASE=$sumo_root_dir/zlib-1.2.11/install/lib/${LIB_PREFIX}zlibstatic.${LIB_EXT}
-    ZLIB_LIBRARY_DEBUG=$sumo_root_dir/zlib-1.2.11/install/lib/${LIB_PREFIX}zlibstaticd.${LIB_EXT}
+    ZLIB_LIBRARY_RELEASE=$sumo_root_dir/zlib-1.2.$ZIP_MIN_VERSION/install/lib/${LIB_PREFIX}zlibstatic.${LIB_EXT}
+    ZLIB_LIBRARY_DEBUG=$sumo_root_dir/zlib-1.2.$ZIP_MIN_VERSION/install/lib/${LIB_PREFIX}zlibstaticd.${LIB_EXT}
 
     XercesC_LIBRARY_RELEASE=$sumo_root_dir/xerces-c-3.2.2/xerces-install/lib/${LIB_PREFIX}xerces-c_3.${LIB_EXT}
     XercesC_LIBRARY_DEBUG=$sumo_root_dir/xerces-c-3.2.2/xerces-install/lib/${LIB_PREFIX}xerces-c_3D.${LIB_EXT}
@@ -192,7 +193,7 @@ if [ ! -d sumo ]; then
     ADDITIONAL_CMAKE_PARAMETERS="-DXercesC_INCLUDE_DIR=${XercesC_INCLUDE_DIR} -DENABLE_PYTHON_BINDINGS=OFF -DENABLE_JAVA_BINDINGS=OFF -DCHECK_OPTIONAL_LIBS=OFF -DXercesC_VERSION=${XercesC_VERSION} -DPROJ_LIBRARY= -DFOX_CONFIG= 
 
     if [[ "$OSTYPE" != "darwin"* ]]; then
-        cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.11/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_DEBUG} -DCMAKE_BUILD_TYPE=Debug  -DXercesC_LIBRARY=${XercesC_LIBRARY_DEBUG} $ADDITIONAL_CMAKE_PARAMETERS
+        cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.$ZIP_MIN_VERSION/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_DEBUG} -DCMAKE_BUILD_TYPE=Debug  -DXercesC_LIBRARY=${XercesC_LIBRARY_DEBUG} $ADDITIONAL_CMAKE_PARAMETERS
         cmake --build . -j $PARALLEL_BUILDS --config Debug
 
         for f in ${LIB_PREFIX}libsumostatic.${LIB_EXT} ${LIB_PREFIX}microsim_engine.${LIB_EXT} ${LIB_PREFIX}foreign_tcpip.${LIB_EXT} ${LIB_PREFIX}utils_traction_wire.${LIB_EXT} ${LIB_PREFIX}microsim_trigger.${LIB_EXT} ${LIB_PREFIX}microsim_actions.${LIB_EXT} ${LIB_PREFIX}traciserver.${LIB_EXT} ${LIB_PREFIX}mesosim.${LIB_EXT} ${LIB_PREFIX}foreign_phemlight.${LIB_EXT} ${LIB_PREFIX}microsim_cfmodels.${LIB_EXT} ${LIB_PREFIX}utils_iodevices.${LIB_EXT} ${LIB_PREFIX}microsim_lcmodels.${LIB_EXT} ${LIB_PREFIX}microsim_traffic_lights.${LIB_EXT} ${LIB_PREFIX}utils_shapes.${LIB_EXT} ${LIB_PREFIX}utils_emissions.${LIB_EXT} ${LIB_PREFIX}microsim_output.${LIB_EXT} ${LIB_PREFIX}netload.${LIB_EXT} ${LIB_PREFIX}microsim_devices.${LIB_EXT} ${LIB_PREFIX}microsim_transportables.${LIB_EXT} ${LIB_PREFIX}microsim.${LIB_EXT} ${LIB_PREFIX}utils_xml.${LIB_EXT} ${LIB_PREFIX}utils_vehicle.${LIB_EXT} ${LIB_PREFIX}utils_geom.${LIB_EXT} ${LIB_PREFIX}utils_common.${LIB_EXT} ${LIB_PREFIX}utils_distribution.${LIB_EXT} ${LIB_PREFIX}utils_options.${LIB_EXT}
@@ -213,7 +214,7 @@ if [ ! -d sumo ]; then
         export LDFLAGS="-framework CoreServices"
     fi
 
-    cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.11/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_RELEASE} -DCMAKE_BUILD_TYPE=Release -DXercesC_LIBRARY=${XercesC_LIBRARY_RELEASE} $ADDITIONAL_CMAKE_PARAMETERS
+    cmake .. -G "${GENERATOR[@]}" ${GENERATOR_ARGUMENTS} -DZLIB_INCLUDE_DIR=${sumo_root_dir}/zlib-1.2.$ZIP_MIN_VERSION/install/include -DZLIB_LIBRARY=${ZLIB_LIBRARY_RELEASE} -DCMAKE_BUILD_TYPE=Release -DXercesC_LIBRARY=${XercesC_LIBRARY_RELEASE} $ADDITIONAL_CMAKE_PARAMETERS
 
     cmake --build . -j $PARALLEL_BUILDS --config Release --clean-first
 
@@ -263,7 +264,7 @@ then
 
     echo Copying libraries
 
-    cp $sumo_root_dir/zlib-1.2.11/install/lib/${LIB_PREFIX}zlibstatic*.${LIB_EXT} $sumo_root_dir/$target_dir/lib
+    cp $sumo_root_dir/zlib-1.2.$ZIP_MIN_VERSION/install/lib/${LIB_PREFIX}zlibstatic*.${LIB_EXT} $sumo_root_dir/$target_dir/lib
     cp $sumo_root_dir/xerces-c-3.2.2/xerces-install/lib/${LIB_PREFIX}xerces-c_3*.${LIB_EXT} $sumo_root_dir/$target_dir/lib
 
     cd $sumo_root_dir/sumo/build-code/src

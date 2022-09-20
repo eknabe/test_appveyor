@@ -30,6 +30,7 @@
 
 fbx_support=false  # users are encouraged to convert fbx to osgb format whenever possible
 PARALLEL_BUILDS=8
+ZIP_MIN_VERSION=12
 
 if [ "$OSTYPE" == "msys" ]; then
 	# Visual Studio 2019 - toolkit from Visual Studio 2017
@@ -122,12 +123,12 @@ if [ "$OSTYPE" == "msys" ]; then
 
 elif  [[ "$OSTYPE" == "darwin"* ]] || [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
-    if [ ! -d zlib-1.2.12 ]; then
-        if [ ! -f zlib1212.zip ]; then
-            curl "https://zlib.net/zlib1212.zip" -o zlib1212.zip
+    if [ ! -d zlib-1.2.$ZIP_MIN_VERSION ]; then
+        if [ ! -f zlib12$ZIP_MIN_VERSION.zip ]; then
+            curl "https://zlib.net/zlib12$ZIP_MIN_VERSION.zip" -o zlib12$ZIP_MIN_VERSION.zip
         fi
-        unzip zlib1212.zip
-        cd zlib-1.2.12
+        unzip zlib12$ZIP_MIN_VERSION.zip
+        cd zlib-1.2.$ZIP_MIN_VERSION
         mkdir install
         mkdir build
         cd build
