@@ -272,7 +272,7 @@ then
     for f in ${LIB_PREFIX}libsumostaticd?.${LIB_EXT} ${LIB_PREFIX}microsim_engined?.${LIB_EXT} ${LIB_PREFIX}foreign_tcpipd?.${LIB_EXT} ${LIB_PREFIX}utils_traction_wired?.${LIB_EXT} ${LIB_PREFIX}microsim_triggerd?.${LIB_EXT} ${LIB_PREFIX}microsim_actionsd?.${LIB_EXT} ${LIB_PREFIX}traciserverd?.${LIB_EXT} ${LIB_PREFIX}mesosimd?.${LIB_EXT} ${LIB_PREFIX}foreign_phemlightd?.${LIB_EXT} ${LIB_PREFIX}microsim_cfmodelsd?.${LIB_EXT} ${LIB_PREFIX}utils_iodevicesd?.${LIB_EXT} ${LIB_PREFIX}microsim_lcmodelsd?.${LIB_EXT} ${LIB_PREFIX}microsim_traffic_lightsd?.${LIB_EXT} ${LIB_PREFIX}utils_shapesd?.${LIB_EXT} ${LIB_PREFIX}utils_emissionsd?.${LIB_EXT} ${LIB_PREFIX}microsim_outputd?.${LIB_EXT} ${LIB_PREFIX}netloadd?.${LIB_EXT} ${LIB_PREFIX}microsim_devicesd?.${LIB_EXT} ${LIB_PREFIX}microsim_transportablesd?.${LIB_EXT} ${LIB_PREFIX}microsimd?.${LIB_EXT} ${LIB_PREFIX}utils_xmld?.${LIB_EXT} ${LIB_PREFIX}utils_vehicled?.${LIB_EXT} ${LIB_PREFIX}utils_geomd?.${LIB_EXT} ${LIB_PREFIX}utils_commond?.${LIB_EXT} ${LIB_PREFIX}utils_distributiond?.${LIB_EXT} ${LIB_PREFIX}utils_optionsd?.${LIB_EXT}
     do
         echo $f
-        find . -type f -regex ".*$f" -exec cp {} $sumo_root_dir/$target_dir/lib/ \;
+        find -E . -type f -regex ".*$f" -exec cp {} $sumo_root_dir/$target_dir/lib/ \;
     done
 
 else
