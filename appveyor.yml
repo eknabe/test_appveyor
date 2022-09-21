@@ -16,11 +16,15 @@ init:
 build_script:
   - sh: >-
       chmod +x scripts/*
+
       mkdir osg
+
       cd osg
+
       ../scripts/generate_osg_libs.sh
+
       cd ..
- 
+
 on_finish:
   - sh: export APPVEYOR_VNC_BLOCK=true
   - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
