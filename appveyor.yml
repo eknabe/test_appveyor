@@ -30,5 +30,5 @@ on_finish:
   - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
   
 artifacts:
-    - path: osg_mac.7z
+    - path: osg/osg_mac.7z
       name: osg_lib
