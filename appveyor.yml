@@ -15,20 +15,20 @@ init:
       
 build_script:
   - sh: >-
-      chmod +x scripts/*
+      # chmod +x scripts/*
 
-      mkdir osg
+      # mkdir osg
 
-      cd osg
+      # cd osg
 
-      ../scripts/generate_osg_libs.sh
+      # ../scripts/generate_osg_libs.sh
 
-      cd ..
+      # cd ..
 
 on_finish:
   - sh: export APPVEYOR_VNC_BLOCK=true
   - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
   
 artifacts:
-    - path: osg/osg_mac.7z
-      name: osg_lib
+    # - path: osg/osg_mac.7z
+    #   name: osg_lib
