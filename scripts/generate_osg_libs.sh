@@ -180,19 +180,19 @@ cd $osg_root_dir
 if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "darwin"* ]]; then
     if [ ! -d jpeg-9e ]; then
         if [ ! -f jpegsrc.v9e.tar.gz ]; then
-            curl "http://www.ijg.org/files/jpegsrc.v9e.tar.gz" -o jpegsrc.v9e.tar.gz
+            curl -L -O http://www.ijg.org/files/jpegsrc.v9e.tar.gz
         fi
         tar xzf jpegsrc.v9e.tar.gz
         cd jpeg-9e
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            ./configure
+            ./configure -CFLAGS="-arch arm64 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.15"
             make
         else
-            ./configure CFLAGS='-fPIC -g'; make -j
+            ./configure CFLAGS='-fPIC -g'; make -j$PARALLEL_BUILDS
             mv .libs .libsd
             mv .libsd/libjpeg.a .libsd/libjpegd.a
             make clean
-            ./configure CFLAGS='-fPIC'; make -j
+            ./configure CFLAGS='-fPIC'; make -j$PARALLEL_BUILDS
         fi
     else
         echo jpeg folder already exists, continue with next step...
