@@ -185,7 +185,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "darwin"* ]]; then
         tar xzf jpegsrc.v9e.tar.gz
         cd jpeg-9e
         if [[ "$OSTYPE" == "darwin"* ]]; then
-            ./configure -CFLAGS="-arch arm64 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.15"
+            ./configure CFLAGS="-arch arm64 -arch x86_64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=10.15"
             make
         else
             ./configure CFLAGS='-fPIC -g'; make -j$PARALLEL_BUILDS
