@@ -12,6 +12,24 @@ before_build:
 
 build_script:
   - echo Visual Studio 2017 x64 build script
+  - cmd: >-
+  
+      set PATH="c:/Program Files/Git/bin";%PATH%
+      
+      git clone https://github.com/esmini/esmini
+      
+      cd esmini
+      
+      mkdir build
+      
+      cd build
+      
+      cmake ..
+      
+      cmake --build . --config Release --target install
+      
+      cd ..
+      
 
 on_finish:
   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
