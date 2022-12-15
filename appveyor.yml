@@ -1,7 +1,7 @@
 
 image:
 - Visual Studio 2017
-
+#- Ubuntu1804
 
 configuration: Release
 
@@ -20,6 +20,8 @@ build_script:
       
       cd esmini
       
+      git checkout update_hello_world
+      
       mkdir build
       
       cd build
@@ -29,7 +31,7 @@ build_script:
       cmake --build . --config Release --target install
       
       cd ..
-      
+
 
 on_finish:
   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
