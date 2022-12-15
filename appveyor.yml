@@ -1,7 +1,7 @@
 
 image:
 - Visual Studio 2017
-#- Ubuntu1804
+# - Ubuntu1804
 
 configuration: Release
 
@@ -11,6 +11,19 @@ before_build:
   - cmd: gitversion /l console /output buildserver  
 
 build_script:
+      # - sh: >-
+
+          # if [ 1 == 1 ];
+          # then
+            # echo first line
+
+            # echo second line
+
+            # ls -al
+
+            # echo third line
+          # fi
+
   - echo Visual Studio 2017 x64 build script
   - cmd:
   
@@ -26,7 +39,7 @@ build_script:
       
       cd build
       
-      cmake ..
+      cmake -G "Visual Studio 15 Win64" ..
       
       cmake --build . --config Release --target install
       
