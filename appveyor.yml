@@ -18,11 +18,8 @@ build_script:
       if [ 1 == 1 ];
       then
         echo first line
-
         echo second line
-
         ls -al
-
         echo third line
       fi
       
