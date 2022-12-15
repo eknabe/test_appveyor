@@ -13,7 +13,10 @@ before_build:
 build_script:
   - sh: >-
 
-      echo Linux build script
+      echo Linux build script1
+      echo Linux build script2
+      ls
+      echo Linux build script3
       
       if [ 1 == 1 ];
       then
