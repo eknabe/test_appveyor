@@ -12,7 +12,7 @@ before_build:
 
 build_script:
   - echo Visual Studio 2017 x64 build script
-  - cmd: >-
+  - cmd:
   
       set PATH="c:/Program Files/Git/bin";%PATH%
       
@@ -31,6 +31,12 @@ build_script:
       cmake --build . --config Release --target install
       
       cd ..
+
+      set PATH="c:/Program Files/Git/bin";%PATH%
+
+      bash .\scripts\generate_binary_dist.sh
+      
+      dir esmini-demo
 
 
 on_finish:
