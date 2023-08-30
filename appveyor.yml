@@ -14,21 +14,21 @@ before_build:
 build_script:
   - sh: >-
 
-      git clone https://github.com/esmini/esmini
+      # git clone https://github.com/esmini/esmini
       
-      cd esmini
+      # cd esmini
       
-      git checkout feature/pr_403_rb
+      # git checkout feature/pr_403_rb
       
-      mkdir build
+      # mkdir build
       
-      cd build
+      # cd build
       
-      cmake ..
+      # cmake ..
       
-      cmake --build . --config Release --target install
+      # cmake --build . --config Release --target install
       
-      cd ..
+      # cd ..
 
 on_finish:
     # Mac
