@@ -2,7 +2,7 @@
 image:
 # - Visual Studio 2017
 # - Ubuntu1804
-- macos
+- macos-monterey
 
 configuration: Release
 
