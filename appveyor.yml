@@ -14,7 +14,7 @@ before_build:
 build_script:
   - sh: >-
 
-      git clone https://github.com/eknabe/esmini_fork --depth 1 --branch traffic_lights_sq
+      git clone https://github.com/eknabe/esmini_fork --depth 1 --branch traffic_lights_sq esmini
 
       cd esmini
 
