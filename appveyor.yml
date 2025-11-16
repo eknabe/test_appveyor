@@ -18,9 +18,9 @@ build_script:
 
       cd esmini
 
-      cmake .. -B build -DCMAKE_BUILD_TYPE=Release
+      cmake . -B build -DCMAKE_BUILD_TYPE=Release
 
-      cmake --build . --target install
+      cmake --build build --target install
 
 on_finish:
     # Mac
