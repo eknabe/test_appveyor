@@ -2,67 +2,59 @@
 image:
 # - Visual Studio 2017
 # - Ubuntu1804
-- macos-monterey
+- macos-sonoma
 
 configuration: Release
 
 platform: x64
 
 before_build:
-  - cmd: gitversion /l console /output buildserver  
+  - cmd: gitversion /l console /output buildserver
 
 build_script:
   - sh: >-
 
-      # git clone https://github.com/esmini/esmini
-      
-      # cd esmini
-      
-      # git checkout feature/pr_403_rb
-      
-      # mkdir build
-      
-      # cd build
-      
-      # cmake ..
-      
-      # cmake --build . --config Release --target install
-      
-      # cd ..
+      git clone https://github.com/eknabe/esmini_fork --depth 1 --branch traffic_lights_sq
+
+      cd esmini
+
+      cmake .. -B build -DCMAKE_BUILD_TYPE=Release
+
+      cmake --build . --target install
 
 on_finish:
     # Mac
   - sh: export APPVEYOR_VNC_BLOCK=true
   - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-vnc.sh' | bash -e -
-      
+
   # - sh: export APPVEYOR_SSH_BLOCK=true
-  # - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -      
+  # - sh: curl -sflL 'https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-ssh.sh' | bash -e -
 
   # - echo Visual Studio 2017 x64 build script
   # - cmd:
-  
+
       # set PATH="c:/Program Files/Git/bin";%PATH%
-      
+
       # git clone https://github.com/esmini/esmini
-      
+
       # cd esmini
-      
+
       # git checkout update_hello_world
-      
+
       # mkdir build
-      
+
       # cd build
-      
+
       # cmake -G "Visual Studio 15 Win64" ..
-      
+
       # cmake --build . --config Release --target install
-      
+
       # cd ..
 
       # set PATH="c:/Program Files/Git/bin";%PATH%
 
       # bash .\scripts\generate_binary_dist.sh
-      
+
       # dir esmini-demo
 
 
